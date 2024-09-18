@@ -1,8 +1,3 @@
-
-
-
-
-
 const apiUrl = "https://localhost:5001";
 
 export const login = (userObject) => {
