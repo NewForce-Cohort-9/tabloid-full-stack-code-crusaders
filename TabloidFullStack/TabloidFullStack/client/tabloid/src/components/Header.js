@@ -32,12 +32,12 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
                   <NavLink tag={RRNavLink} to="/Category">Category<br/>Management</NavLink> 
               </NavItem>
               <NavItem>
-                  <NavLink tag={RRNavLink} to="/Tag">Tag Management</NavLink> 
+                  <NavLink tag={RRNavLink} to="/Tag">Tag<br/>Management</NavLink> 
               </NavItem>       
             </>
             }
           </Nav>
-          <Nav className="ml-auto" style={{marginLeft: "auto"}} navbar>
+          <Nav className="ml-auto" style={{marginLeft: "auto", fontWeight: "bolder"}} navbar>
             {isLoggedIn &&
               <>
                 <NavItem>
