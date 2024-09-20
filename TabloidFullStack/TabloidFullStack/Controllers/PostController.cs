@@ -25,9 +25,8 @@ namespace TabloidFullStack.Controllers
             return Ok(_postRepository.GetAllPublishedPosts());
         }
 
-        // GET api/<PostController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("GetPublishedPostById/{id}")]
+        public IActionResult GetPublishedPostById(int id)
         {
             var post = _postRepository.GetPublishedPostById(id);
             if (post == null)
@@ -37,12 +36,26 @@ namespace TabloidFullStack.Controllers
             return Ok(post);
         }
 
+        // GET api/<PostController>/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var post = _postRepository.GetById(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
+        }
+
         // POST api/<PostController>
         [HttpPost]
         public IActionResult Post(Post post)
         {
             post.CreateDateTime = DateTime.Now;
-            post.UserProfileId = 1;
+            post.PublishDateTime = DateTime.Now;
             _postRepository.Add(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
