@@ -5,10 +5,13 @@ import { deleteCategory } from '../../Managers/CategoryManager.js';
 export const Category = ({
     category,
 }) => {
+
     
     const handleDelete = () => {
         deleteCategory(category.id);
       };
+
+
 
   return (
     <Card>
