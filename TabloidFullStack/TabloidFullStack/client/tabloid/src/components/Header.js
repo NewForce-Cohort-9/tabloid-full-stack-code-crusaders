@@ -17,22 +17,30 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar color="light" light expand="md" style={{border: "6px ridge lavender"}}>
         <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
+          <Nav className="mr-auto" navbar style={{alignItems: "center", textAlign: "center", marginLeft: "2rem", width: "fit-content"}}>
             { /* When isLoggedIn === true, we will render the Home link */ }
             {isLoggedIn &&
+            <>
+              <NavItem style={{marginRight: "1.5rem"}}>
+                <NavLink tag={RRNavLink} to="/">Home</NavLink>     
+              </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/">Home</NavLink>
-                  <NavLink tag={RRNavLink} to="/Post">Posts</NavLink>      
-                  <NavLink tag={RRNavLink} to="/Category">Category Management</NavLink>       
-                  <NavLink tag={RRNavLink} to="/Tag">Tag Management</NavLink>       
-              </NavItem>             
+                  <NavLink tag={RRNavLink} to="/Post">Posts</NavLink> 
+              </NavItem>
+              <NavItem>
+                  <NavLink tag={RRNavLink} to="/Category">Category<br/>Management</NavLink> 
+              </NavItem>
+              <NavItem>
+                  <NavLink tag={RRNavLink} to="/Tag">Tag<br/>Management</NavLink> 
+              </NavItem>       
+            </>
             }
           </Nav>
-          <Nav navbar>
+          <Nav className="ml-auto" style={{marginLeft: "auto", fontWeight: "bolder"}} navbar>
             {isLoggedIn &&
               <>
                 <NavItem>
