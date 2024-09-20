@@ -1,17 +1,17 @@
 import React from 'react';
 import { Button, Card, CardBody } from 'reactstrap';
-import { deleteCategory } from '../../Managers/CategoryManager.js';
+import { deleteCategory,  } from '../../Managers/CategoryManager.js';
 
 export const Category = ({
     category,
+    getCategories
 }) => {
-
-    
+   
     const handleDelete = () => {
-        deleteCategory(category.id);
+        deleteCategory(category.id).then(() => {
+            getCategories();
+        })
       };
-
-
 
   return (
     <Card>
