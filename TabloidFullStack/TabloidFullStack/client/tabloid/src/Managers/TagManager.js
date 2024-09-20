@@ -8,7 +8,7 @@ export const getAllTags = () => {
 
 // fetch to add new Tag
 export const addTag = (tag) => {
-    return fetch(apiUrl, {
+    return fetch(`${apiUrl}/api/Tag`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const addTag = (tag) => {
 
 //fetch to edit a Tag
 export const editTag = (tag) => {
-    return fetch(`${apiUrl}/${tag.id}`, {
+    return fetch(`${apiUrl}/api/Tag/${tag.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const editTag = (tag) => {
 
 // fetch to delete a Tag
 export const deleteTag = (tagId) => {
-    return fetch(`${apiUrl}/${tagId}`, {
+    return fetch(`${apiUrl}/api/Tag/${tagId}`, {
         method: "DELETE"
     })
 }
