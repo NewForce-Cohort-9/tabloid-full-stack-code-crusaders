@@ -5,7 +5,7 @@ using TabloidFullStack.Repositories;
 
 namespace TabloidFullStack.Controllers
 {
-    [Route("api/[posts]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
     {
