@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPostById } from "../../Managers/PostManager.js";
 import { Link, useParams } from "react-router-dom";
-import { Card, CardBody, CardImg } from "reactstrap";
+import { Button, Card, CardBody, CardImg } from "reactstrap";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
@@ -27,6 +27,9 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
+        <Link to="/post" key="post">
+          <Button color="info">Return to Posts</Button>
+        </Link>
       </CardBody>
       </Card>
     </>
