@@ -90,6 +90,47 @@ namespace TabloidFullStack.Repositories
             }
         }
 
+        public Post GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName
+                          FROM Post p
+                               LEFT JOIN UserProfile up on up.Id = p.UserProfileId
+                         WHERE p.Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    Post post = null;
+
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        post = new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                DisplayName = DbUtils.GetString(reader, "DisplayName")
+                            }
+                        };
+                    }
+                    reader.Close();
+
+                    return post;
+                }
+            }
+        }
+
         public List<Post> GetUserPostsByUserProfileId(int userProfileId)
         {
             using (var conn = Connection)
@@ -153,18 +194,17 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Post (
-                            Title, Content, ImageLocation, CreateDateTime, PublishDateTime,
+                        INSERT INTO Post ( Title, Content, ImageLocation, CreateDateTime, PublishDateTime,
                             IsApproved, CategoryId, UserProfileId )
                         OUTPUT INSERTED.ID
-                        VALUES (
-                            @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
+                        VALUES ( @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
                             @IsApproved, @CategoryId, @UserProfileId )";
+
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
-                    DbUtils.AddParameter(cmd, "@ImageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
-                    DbUtils.AddParameter(cmd, "@PublishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
                     DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
@@ -226,6 +266,7 @@ namespace TabloidFullStack.Repositories
                 ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                 PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 Category = new Category()
                 {
