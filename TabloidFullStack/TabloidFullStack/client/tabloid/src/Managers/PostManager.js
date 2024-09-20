@@ -6,6 +6,10 @@ export const getAllPosts = () => {
       .then((res) => res.json())
   };
 
+  export const getPostById = (id) => {
+    return fetch(`${apiUrl}/${id}`).then(res => res.json())
+}
+
   export const addPost = (singlePost) => { 
     return fetch(apiUrl, {
       method: "POST",

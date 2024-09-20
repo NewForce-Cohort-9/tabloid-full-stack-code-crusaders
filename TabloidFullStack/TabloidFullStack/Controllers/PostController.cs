@@ -25,15 +25,28 @@ namespace TabloidFullStack.Controllers
             return Ok(_postRepository.GetAllPublishedPosts());
         }
 
-        // GET api/<PostController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("GetPublishedPostById/{id}")]
+        public IActionResult GetPublishedPostById(int id)
         {
             var post = _postRepository.GetPublishedPostById(id);
             if (post == null)
             {
                 return NotFound();
             }
+            return Ok(post);
+        }
+
+        // GET api/<PostController>/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var post = _postRepository.GetById(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
             return Ok(post);
         }
 
