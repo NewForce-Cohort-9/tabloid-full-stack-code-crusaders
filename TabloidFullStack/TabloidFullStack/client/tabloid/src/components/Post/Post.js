@@ -8,16 +8,16 @@ export const Post = ({ post }) => {
       {/* <CardImg top src={post.imageLocation} alt={post.title} /> */}
       <CardBody>
         <h2>
-          <Link to={`/posts/${post.id}`}>
+          <Link to={`/post/${post.id}`}>
           <strong>{post.title}</strong>
           </Link>
         </h2>
         <p>{new Date(post.publishDateTime).toLocaleDateString()}</p>
         <p>Category: <em>{post.category.name}</em></p>
-        <Link to={`/Users/${post.userProfileId}`} className="navbar-brand">
+        {/* <Link to={`/Users/${post.userProfileId}`} className="navbar-brand">
             Posted by: {post.userProfile?.displayName}
         </Link>
-        <p>{post.content}</p>    
+        <p>{post.content}</p>     */}
         </CardBody>
     </Card>
   );
