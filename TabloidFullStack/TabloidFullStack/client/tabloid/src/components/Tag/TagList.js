@@ -21,7 +21,7 @@ export const TagList = () => {
       <div>
         <Link to="/tag/add" key="tag name">
             <Col>
-                <Button color="into">Add a new Tag</Button>
+                <Button color="info">Add a new Tag</Button>
             </Col>
         </Link>
         </div>

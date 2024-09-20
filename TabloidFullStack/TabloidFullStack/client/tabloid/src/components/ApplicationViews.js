@@ -5,6 +5,7 @@ import { PostList } from "./Post/PostList";
 import { PostDetails } from "./Post/PostDetails.js";
 import { CategoryList } from "./Category/CategoryList.js";
 import { CategoryCreate } from "./Category/CategoryCreate.js";
+import { TagList } from "./Tag/TagList.js"
 import { CreateTag } from "./Tag/CreateTag.js";
 import { EditTag } from "./Tag/EditTag.js";
 import { DeleteTag } from "./Tag/DeleteTag.js";
