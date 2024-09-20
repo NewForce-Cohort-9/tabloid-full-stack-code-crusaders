@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, CardBody } from 'reactstrap';
 import { deleteCategory,  } from '../../Managers/CategoryManager.js';
+import { Link } from 'react-router-dom';
 
 export const Category = ({
     category,
@@ -18,7 +19,7 @@ export const Category = ({
       <CardBody>
         <p>
         {category.name}
-        <Button color="primary" outline size="sm">Edit</Button>
+       <Link to={`/category/edit/${category.id}`}> <Button color="primary" outline size="sm">Edit</Button></Link>
         <Button color="success" outline size="sm" onClick={handleDelete}>Delete</Button>
         </p>
         </CardBody>  

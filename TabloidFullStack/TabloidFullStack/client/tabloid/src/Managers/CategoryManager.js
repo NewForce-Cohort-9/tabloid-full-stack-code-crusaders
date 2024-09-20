@@ -35,3 +35,7 @@ export const updateCategory = (category) => {
     });
   };
   
+export const getCategoryById = (id) => {
+    return fetch(`${apiUrl}/${id}`)
+    .then((res) => res.json());
+};
