@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Input, Row } from 'reactstrap';
 import { getCategoryById, updateCategory } from '../../Managers/CategoryManager.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const CategoryEdit = ({category, getCategories}) => {
     const [name, setName] = useState({
-        name: category.name
+        name:"",
     });   
+    
+const navigate = useNavigate();
 
     useEffect(() => {
         getCategoryById(category.id).then((data) => {
             setName(data)
         })
     }, [])
+
 
     const handleSave = (e) => {
         e.preventDefault()
