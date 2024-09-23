@@ -1,11 +1,10 @@
-import { Card, CardImg, CardBody, Button } from "reactstrap";
+import { Card, CardBody, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 
 export const Post = ({ post }) => {
   return (
     <Card className="m-4">
-      {/* <CardImg top src={post.imageLocation} alt={post.title} /> */}
       <CardBody>
         <h2>
           <Link to={`/post/${post.id}`}>
@@ -17,7 +16,9 @@ export const Post = ({ post }) => {
         {/* <Link to={`/Users/${post.userProfileId}`} className="navbar-brand">
             Posted by: {post.userProfile?.displayName}
         </Link> */}
-        <Button color="primary" outline size="sm">Edit</Button>
+        <Link to="/post/edit/:id" key="post name">
+          <Button color="primary" outline size="sm">Edit</Button>
+        </Link>
         <Button color="success" outline size="sm">Delete</Button>
         </CardBody>
     </Card>

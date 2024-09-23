@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Row, Form, Input, Col, Label } from "reactstrap";
 import { addPost } from "../../Managers/PostManager.js";
 import { getAllCategories } from "../../Managers/CategoryManager.js"
@@ -43,8 +43,10 @@ if (!postCategories.length > 0) {
     postCopy.UserProfileId = parsedUser.id
     postCopy.IsApproved = true
 
-    addPost(postCopy).then(postId => navigate(`/post/${postId}`))
-}
+    addPost(postCopy).then((p) => {
+              navigate("/Post");
+            });
+    }
 
   return (
     <div className="create-container">
@@ -109,6 +111,9 @@ if (!postCategories.length > 0) {
             <Button color="info" onClick={() => createPostObj()}>
               Submit
             </Button>
+            <Link to="/post" key="post">
+                <Button color="info bg-info-subtle">Return to Posts</Button>
+            </Link>
           </Col>
         </Row>
       </Form>

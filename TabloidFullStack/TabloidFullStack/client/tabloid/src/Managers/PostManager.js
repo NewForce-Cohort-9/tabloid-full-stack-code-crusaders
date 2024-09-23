@@ -10,6 +10,7 @@ export const getAllPosts = () => {
     return fetch(`${apiUrl}/${id}`).then(res => res.json())
 }
 
+//fetch to add new Post to database
   export const addPost = (singlePost) => { 
     return fetch(apiUrl, {
       method: "POST",
@@ -19,3 +20,21 @@ export const getAllPosts = () => {
       body: JSON.stringify(singlePost),
     });
   };
+
+  //fetch to edit a Post
+export const editPost = (post) => {
+    return fetch(`${apiUrl}/api/Post/${post.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post)
+    })
+}
+
+// fetch to delete a Post
+export const deletePost = (postId) => {
+    return fetch(`${apiUrl}/api/Post/${postId}`, {
+        method: "DELETE"
+    })
+}
