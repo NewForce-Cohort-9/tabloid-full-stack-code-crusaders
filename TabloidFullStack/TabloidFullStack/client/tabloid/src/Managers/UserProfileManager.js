@@ -41,3 +41,44 @@ export const register = (userObject, password) => {
 //      {props.children}
 //   </UserProfileContext.Provider>
 // );
+
+
+//fetch to get list of Users
+export const getAllUsers = () => {
+  return fetch(`${apiUrl}/api/userprofile`) // Use the correct API path
+  .then((res) => {
+      if (res.ok) {
+          return res.json();
+      } else {
+          throw new Error('Failed to fetch users');
+      }
+  });
+};
+
+
+// fetch to add new UserProfile
+export const addUserProfile = (user) => {
+    return fetch(`${apiUrl}/api/userprofile`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user)
+    });
+};
+
+export const getUserById = (id) => {
+  return fetch(`${apiUrl}/api/userprofile/${id}`)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return null; // Return null if there's no valid JSON response
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching user by ID:", error);
+      return null;
+    });
+};
+
