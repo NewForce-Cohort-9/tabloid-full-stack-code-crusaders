@@ -7,6 +7,8 @@ import { PostCreate } from "./Post/PostCreate.js";
 import { PostEdit } from "./Post/PostEdit.js";
 import { CategoryList } from "./Category/CategoryList.js";
 import { CategoryCreate } from "./Category/CategoryCreate.js";
+import { CategoryEdit } from "./Category/CategoryEdit.js";
+import { CategoryDelete } from "./Category/CategoryDelete.js";
 import { TagList } from "./Tag/TagList.js"
 import { CreateTag } from "./Tag/CreateTag.js";
 import { EditTag } from "./Tag/EditTag.js";
@@ -24,6 +26,8 @@ export default function ApplicationViews() {
         {/* <Route path="/post/delete/:id" element={<PostDelete />} /> */}
         <Route path="/category" element={<CategoryList />} />
         <Route path="/category/add" element={<CategoryCreate />} />
+        <Route path="/category/edit/:id" element={<CategoryEdit/>} />
+        <Route path="/category/delete/:id" element={<CategoryDelete />} />
         <Route path="/tag" element={<TagList />} />
         <Route path="/tag/add" element={<CreateTag />} />
         <Route path="/tag/edit/:id" element={<EditTag />} /> 

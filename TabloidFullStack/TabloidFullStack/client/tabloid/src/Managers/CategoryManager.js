@@ -16,3 +16,26 @@ export const addCategory = (categories) => {
         body: JSON.stringify(categories)
     });
 };
+
+//fetch to handle Delete
+export const deleteCategory = (id) => {
+    return fetch(`${apiUrl}/${id}`, {
+      method: "DELETE",
+    });
+  };
+
+  //fetch to handle the Edit
+export const updateCategory = (category) => {
+    return fetch(`${apiUrl}/${category.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(category),
+    });
+  };
+  
+export const getCategoryById = (id) => {
+    return fetch(`${apiUrl}/${id}`)
+    .then((res) => res.json());
+};
