@@ -28,7 +28,7 @@ export const CategoryList = () => {
       <div>
         {categories.map((category) => (
           <ul>
-            <Category key={category.id} category={category} />
+            <Category key={category.id} getCategories={getCategories} category={category} />
           </ul>
         ))}
       </div>
