@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Row, Form, Input, Col, Label } from "reactstrap";
 import { addPost } from "../../Managers/PostManager.js";
 import { getAllCategories } from "../../Managers/CategoryManager.js"
 
-export const CategoryCreate = () => {
+export const PostCreate = () => {
+    const [post, setPost] = useState({});
     const [postCategories, setPostCategories] = useState([]);
-    const [userProfileId, setUserProfileId] = useState("");
-    const [imageLocation, setImageLocation] = useState("");
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    // const [userProfileId, setUserProfileId] = useState("");
+    // const [imageLocation, setImageLocation] = useState("");
+    // const [title, setTitle] = useState("");
+    // const [content, setContent] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,18 +22,29 @@ if (!postCategories.length > 0) {
     return <div>No Data Yet!</div>
 }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newPost = {
-        imageLocation,
-        title,
-        content,
-        userProfileId: +userProfileId,
-    };
-    addPost(newPost).then((c) => {
-      navigate("/Post");
-    });
-  };
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     const newPost = {
+//         imageLocation,
+//         title,
+//         content,
+//         userProfileId: +userProfileId,
+//     };
+//     addPost(newPost).then((p) => {
+//       navigate("/Post");
+//     });
+//   };
+
+  const createPostObj = () => {
+    let user = localStorage.getItem("userProfile")
+    const parsedUser = JSON.parse(user)
+    
+    let postCopy = {...post}
+    postCopy.UserProfileId = parsedUser.id
+    postCopy.IsApproved = true
+
+    addPost(postCopy).then(postId => navigate(`/post/${postId}`))
+}
 
   return (
     <div className="create-container">
@@ -40,24 +52,34 @@ if (!postCategories.length > 0) {
       <Form>
         <Row className="row-cols-lg-auto g-3 align-items-center">
           <Col>
-            <Label for="userId">User Id (For Now...)</Label>
+            {/* <Label for="userId">User Id (For Now...)</Label>
             <Input
                 id="userId"
                 onChange={(e) => setUserProfileId(e.target.value)}
-            />
+            /> */}
             <Label for="imageLocation">Image URL</Label>
             <Input
                 id="imageLocation"
-                 onChange={(e) => setImageLocation(e.target.value)}
+                type="text"
+                placeholder="Header Image URL"
+                onChange={(e) => {
+                    let postObj = {...post}
+                    postObj.ImageLocation = e.target.value
+                    setPost(postObj)
+                }}
             />
             <Label for="title">Title</Label>
             <Input
               id="post"
               type="text"
               placeholder="Post Title"
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                let postObj = {...post}
+                postObj.Title = e.target.value
+                setPost(postObj)}}
             />
             <Label for="category">Select Post Category</Label>
+            <br />
             <select name="categories" id="createPostCategories" 
                 onChange={(e) => {
                     let copy = {...post}
@@ -71,14 +93,20 @@ if (!postCategories.length > 0) {
                         </option>
                     })}
             </select>
+            <br />
             <Label for="content">Content</Label>
             <Input
                 id="content"
-                onChange={(e) => setContent(e.target.value)}
+                type="text"
+                placeholder="Post Content"
+                onChange={(e) => {
+                    let postObj = {...post}
+                    postObj.Content = e.target.value
+                    setPost(postObj)
+                }}
             />
-          </Col>
-          <Col>
-            <Button color="info" onClick={handleSubmit}>
+            <br />
+            <Button color="info" onClick={() => createPostObj()}>
               Submit
             </Button>
           </Col>
