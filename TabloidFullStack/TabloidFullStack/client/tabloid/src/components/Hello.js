@@ -4,7 +4,7 @@ export default function Hello() {
   const [userFName, SetUserFName] = useState([]);
 
   useEffect(() => {
-    SetUserFName(localStorage?.userProfile.split(':' && '"')[5]);
+    SetUserFName(localStorage.userProfile?.split(':' && '"')[5]);
   }, []);
 
   return (

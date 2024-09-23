@@ -1,28 +1,26 @@
-import React from 'react';
-import { Button, Card, CardBody } from 'reactstrap';
-import { deleteCategory,  } from '../../Managers/CategoryManager.js';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Button, Card, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
-export const Category = ({
-    category,
-    getCategories
-}) => {
-   
-    const handleDelete = () => {
-        deleteCategory(category.id).then(() => {
-            getCategories();
-        })
-      };
-
+export const Category = ({ category }) => {
   return (
     <Card>
       <CardBody>
         <p>
-        {category.name}
-       <Link to={`/category/edit/${category.id}`}> <Button color="primary" outline size="sm">Edit</Button></Link>
-        <Button color="success" outline size="sm" onClick={handleDelete}>Delete</Button>
+          {category.name}
+          <Link to={`/category/edit/${category.id}`}>
+            {" "}
+            <Button color="primary" outline size="sm">
+              Edit
+            </Button>
+          </Link>
+          <Link to={`/category/delete/${category.id}`}>
+            <Button color="success" outline size="sm">
+              Delete
+            </Button>
+          </Link>
         </p>
-        </CardBody>  
+      </CardBody>
     </Card>
-  )
-}
+  );
+};
