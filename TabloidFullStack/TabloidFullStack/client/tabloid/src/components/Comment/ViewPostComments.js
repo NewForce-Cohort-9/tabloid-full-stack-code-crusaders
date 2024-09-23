@@ -21,7 +21,7 @@ export const CommentList = () => {
         <>
             <div className="container">
                 <div className="row justify-content-center">
-                    { !comments === null ? 
+                    { comments.length > 0 ? 
                     (
                     <>
                     <h2 style={{textAlign: "center", margin: "1.5rem 0"}}>Comments for Post: "{comments[0]?.post.title}"</h2>
