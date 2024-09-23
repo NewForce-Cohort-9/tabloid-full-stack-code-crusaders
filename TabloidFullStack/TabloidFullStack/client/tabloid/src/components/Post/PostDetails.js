@@ -30,6 +30,9 @@ export const PostDetails = () => {
         <Link to="/post" key="post">
           <Button color="info">Return to Posts</Button>
         </Link>
+        <Link to={`/comments/${postDetails.id}`} className="comments-link ml-auto" style={{position: "absolute", right: "1.5rem"}}>
+          <Button color="primary">View Comments</Button>
+        </Link>
       </CardBody>
       </Card>
     </>
