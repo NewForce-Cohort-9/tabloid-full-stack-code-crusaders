@@ -26,7 +26,7 @@ export const deleteCategory = (id) => {
 
   //fetch to handle the Edit
 export const updateCategory = (category) => {
-    return fetch(apiUrl, {
+    return fetch(`${apiUrl}/${category.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
