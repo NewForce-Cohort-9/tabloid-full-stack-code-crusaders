@@ -16,7 +16,7 @@ export const Post = ({ post }) => {
         {/* <Link to={`/Users/${post.userProfileId}`} className="navbar-brand">
             Posted by: {post.userProfile?.displayName}
         </Link> */}
-        <Link to="/post/edit/:id" key="post name">
+        <Link to={`/post/edit/${post.id}`} key="post name">
           <Button color="primary" outline size="sm">Edit</Button>
         </Link>
         <Button color="success" outline size="sm">Delete</Button>

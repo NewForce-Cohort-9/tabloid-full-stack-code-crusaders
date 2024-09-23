@@ -5,11 +5,11 @@ import { editPost} from "../../Managers/PostManager.js"
 import { Button, Form, Col, Input, Label, Row } from "reactstrap"
 
 export const PostEdit = () => {
-    const [postCategories, setPostCategories] = useState([])
-    const [title, setTitle] = useState("")
-    const [content, setContent] = useState("")
-    const [imageLocation, setImageLocation] = useState("")
-    const [post, setPost] = useState({})
+    const [postCategories, setPostCategories] = useState([]);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [imageLocation, setImageLocation] = useState("");
+    const [post, setPost] = useState({});
 
     const { state } = useLocation()
     const navigate = useNavigate()
@@ -52,7 +52,9 @@ export const PostEdit = () => {
                         <Input id="addPostTitle"
                         onChange={(e) => {
                             setTitle(e.target.value)
-                        }} value={title}></Input><br />
+                        }} value={title}>
+                        </Input>
+                        <br />
                         <Label for="addPostContent">Content</Label>
                         <Input id="addPostContent" 
                         onChange={(e) => {
@@ -85,7 +87,7 @@ export const PostEdit = () => {
                         <br />
                         <Button id="submitNewPost" type="submit" 
                         onClick={(e) => updatePost(e)}>
-                            Edit Post!
+                            Update Post!
                         </Button>
                         <br/>
                         <Link to={`/post/${post.id}`}>Back to post details!</Link>
