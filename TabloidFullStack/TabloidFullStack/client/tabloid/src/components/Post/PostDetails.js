@@ -5,27 +5,35 @@ import { Button, Card, CardBody, Input } from "reactstrap";
 import { getAllTags } from "../../Managers/TagManager.js";
 
 export const PostDetails = () => {
-  const [postDetails, setPostDetails] = useState({});
+  const [postDetails, setPostDetails] = useState({ tags: [] });
   const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    getPostById(id).then((postObj) => setPostDetails(postObj));
+    getPostById(id).then((postObj) => {
+      setPostDetails(postObj);
+      // Pre-select the already associated tags
+      const tagIds = postObj.tags?.map((tag) => tag.id) || [];
+      setSelectedTags(tagIds);
+    });
     getAllTags().then(setAllTags);
   }, [id]);
+  
 
   const handleTagChange = (e) => {
     const value = parseInt(e.target.value);
-    setSelectedTags(
-      selectedTags.includes(value)
-        ? selectedTags.filter((tag) => tag !== value)
-        : [...selectedTags, value]
+    setSelectedTags((prevSelectedTags) =>
+        prevSelectedTags.includes(value)
+            ? prevSelectedTags.filter((tag) => tag !== value)
+            : [...prevSelectedTags, value]
     );
   };
 
   const handleSaveTags = () => {
-    addTagsToPost(postDetails.id, selectedTags).then(() => {
+    // Use the existing state variable directly
+    const tagIds = selectedTags; // `selectedTags` already holds the tag IDs
+    addTagsToPost(postDetails.id, tagIds).then(() => {
       window.location.reload(); // Reload to reflect changes
     });
   };
