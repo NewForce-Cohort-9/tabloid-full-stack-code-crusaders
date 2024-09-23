@@ -3,6 +3,7 @@ import { Card, CardBody, CardText, CardTitle } from "reactstrap";
 
 export const CommentCard = ({ comment }) => {
 
+    // Added a formatDate function to get some exposure to a more standardized version of front-end date formatting
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         if (!isNaN(date)) {
