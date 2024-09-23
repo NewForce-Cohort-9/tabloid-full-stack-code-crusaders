@@ -5,6 +5,7 @@ import { PostList } from "./Post/PostList";
 import { PostDetails } from "./Post/PostDetails.js";
 import { PostCreate } from "./Post/PostCreate.js";
 import { PostEdit } from "./Post/PostEdit.js";
+import { PostDelete } from "./Post/PostDelete.js";
 import { CategoryList } from "./Category/CategoryList.js";
 import { CategoryCreate } from "./Category/CategoryCreate.js";
 import { CategoryEdit } from "./Category/CategoryEdit.js";
@@ -23,7 +24,7 @@ export default function ApplicationViews() {
         <Route path="/post/:id" element={<PostDetails />} />
         <Route path="/post/add" element={<PostCreate />} />
         <Route path="/post/edit/:id" element={<PostEdit />} />
-        {/* <Route path="/post/delete/:id" element={<PostDelete />} /> */}
+        <Route path="/post/delete/:id" element={<PostDelete />} />
         <Route path="/category" element={<CategoryList />} />
         <Route path="/category/add" element={<CategoryCreate />} />
         <Route path="/category/edit/:id" element={<CategoryEdit/>} />
