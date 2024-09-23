@@ -58,7 +58,7 @@ export const PostDetails = () => {
           {postDetails.tags?.map((tag) => (
             <span key={tag.id}>
               {tag.name} 
-              <Button size="sm" onClick={() => handleRemoveTag(tag.id)}>
+              <Button color="danger" outline size="sm" onClick={() => handleRemoveTag(tag.id)}>
                 Remove
               </Button>
             </span>
@@ -76,7 +76,7 @@ export const PostDetails = () => {
                 {tag.name}
               </div>
             ))}
-            <Button onClick={handleSaveTags}>Save Tags</Button>
+            <Button color="success" outline onClick={handleSaveTags}>Save Tags</Button>
           </div>
         </CardBody>
       </Card>
