@@ -6,5 +6,7 @@ namespace TabloidFullStack.Repositories
     {
         void Add(UserProfile userProfile);
         UserProfile GetByEmail(string email);
+        List<UserProfile> GetAllUsers();
+        UserProfile GetById(int id);
     }
 }

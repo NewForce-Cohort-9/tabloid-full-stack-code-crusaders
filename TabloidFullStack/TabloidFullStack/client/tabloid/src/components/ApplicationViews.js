@@ -14,6 +14,8 @@ import { CreateTag } from "./Tag/CreateTag.js";
 import { EditTag } from "./Tag/EditTag.js";
 import { DeleteTag } from "./Tag/DeleteTag.js";
 import { CommentList } from "./Comment/ViewPostComments.js";
+import { UserProfileList } from "./UserProfile/UserProfileList.js";
+import { UserProfileDetails } from "./UserProfile/UserProfileDetails.js";
 
 export default function ApplicationViews() {
 
@@ -26,6 +28,8 @@ export default function ApplicationViews() {
         <Route path="/post/add" element={<PostCreate />} />
         <Route path="/post/edit/:id" element={<PostEdit />} />
         {/* <Route path="/post/delete/:id" element={<PostDelete />} /> */}
+        <Route path="/user" element={<UserProfileList />} />
+        <Route path="/user/:id" element={<UserProfileDetails />} />
         <Route path="/category" element={<CategoryList />} />
         <Route path="/category/add" element={<CategoryCreate />} />
         <Route path="/category/edit/:id" element={<CategoryEdit/>} />
