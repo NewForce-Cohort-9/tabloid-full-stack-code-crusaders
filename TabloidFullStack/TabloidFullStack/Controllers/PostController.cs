@@ -81,7 +81,34 @@ namespace TabloidFullStack.Controllers
             return NoContent();
         }
 
-        //GET api/<PostController>
+        [HttpPost("{id}/tags")]
+        public IActionResult AddTagsToPost(int id, List<int> tagIds)
+        {
+            var post = _postRepository.GetById(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _postRepository.AddTagsToPost(id, tagIds);
+            return NoContent();
+        }
+
+        [HttpDelete("{postId}/tags/{tagId}")]
+        public IActionResult RemoveTagFromPost(int postId, int tagId)
+        {
+            var post = _postRepository.GetById(postId);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _postRepository.RemoveTagFromPost(postId, tagId);
+            return NoContent();
+        }
+
         [HttpGet("GetUserPostsByUserProfileId/{id}")]
         public IActionResult GetUserPostsByUserProfileId(int id)
         {
@@ -90,7 +117,7 @@ namespace TabloidFullStack.Controllers
             {
                 return NotFound();
             }
-            return Ok(post);
+
         }
     }
 }
