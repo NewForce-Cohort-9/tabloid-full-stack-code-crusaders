@@ -22,7 +22,7 @@ export default function ApplicationViews() {
       <Routes>
         <Route path="/" element={<Hello />} />
         <Route path="/post" element={<PostList />} />
-        <Route path="post/GetUserPostsByUserProfileId/:id" element={<UsersPostList />}/>
+        <Route path="post/MyPosts" element={<UsersPostList />}/>
         <Route path="/post/:id" element={<PostDetails />} />
         <Route path="/comments/:id" element={<CommentList />} />
         <Route path="/post/add" element={<PostCreate />} />

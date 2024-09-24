@@ -35,7 +35,8 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(post);
         }
-        [HttpGet("myposts/{userId}")]
+
+        [HttpGet("MyPosts/{userPofileId}")]
         public IActionResult GetUserPostsByUserProfileId(int userProfileId)
         {
             var post = _postRepository.GetUserPostsByUserProfileId(userProfileId);

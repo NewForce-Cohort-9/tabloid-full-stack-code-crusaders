@@ -21,9 +21,8 @@ export const addPost = (singlePost) => {
 };
 
 //fetch to get all Posts by User Profile id
-//https://localhost:5001/api/Post/GetUserPostsByUserProfileId/:id
-export const getPostsByUserId = (userId) => {
-  return fetch(`${apiUrl}/GetUserPostsByUserProfileId/${userId}`).then((res) =>
+export const getPostsByUserId = (userProfileId) => {
+  return fetch(`${apiUrl}/MyPosts/${userProfileId}`).then((res) =>
     res.json()
   );
 };
