@@ -23,20 +23,30 @@ export const PostDetails = () => {
 
   const handleTagChange = (e) => {
     const value = parseInt(e.target.value);
-    setSelectedTags((prevSelectedTags) =>
-        prevSelectedTags.includes(value)
-            ? prevSelectedTags.filter((tag) => tag !== value)
-            : [...prevSelectedTags, value]
-    );
-  };
 
-  const handleSaveTags = () => {
-    // Use the existing state variable directly
-    const tagIds = selectedTags; // `selectedTags` already holds the tag IDs
-    addTagsToPost(postDetails.id, tagIds).then(() => {
-      window.location.reload(); // Reload to reflect changes
+    // If more than one tag is selected, throw an alert
+    if (selectedTags.length >= 1 && !selectedTags.includes(value)) {
+        alert("You can only select one tag.");
+    } else {
+        // Toggle tag selection
+        setSelectedTags((prevSelectedTags) =>
+            prevSelectedTags.includes(value)
+                ? prevSelectedTags.filter((tag) => tag !== value)
+                : [...prevSelectedTags, value]
+        );
+    }
+};
+
+const handleSaveTags = () => {
+    if (selectedTags.length > 1) {
+        alert("Only one tag can be saved at a time.");
+        return;
+    }
+
+    addTagsToPost(postDetails.id, selectedTags).then(() => {
+        window.location.reload(); // Reload to reflect changes
     });
-  };
+};
 
   const handleRemoveTag = (tagId) => {
     removeTagFromPost(postDetails.id, tagId).then(() => {
