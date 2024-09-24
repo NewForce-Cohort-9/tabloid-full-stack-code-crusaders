@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { addTagsToPost, getPostById, removeTagFromPost } from "../../Managers/PostManager.js";
-import { useParams } from "react-router-dom";
-import { Button, Card, CardBody, Input } from "reactstrap";
+import { Link, useParams } from "react-router-dom";
+import { Button, Card, CardBody, Input, CardImg } from "reactstrap";
 import { getAllTags } from "../../Managers/TagManager.js";
 
 export const PostDetails = () => {
@@ -60,11 +60,22 @@ const handleSaveTags = () => {
 
   return (
     <>
+      <div  style={{width: "100%", display: "flex", justifyContent: "center"}}>
+        <Link to="/post" key="post">
+          <Button color="info" className="mt-3">Return to Posts</Button>
+        </Link>
+      </div>
       <Card className="m-4">
-        <CardBody>
-          <h2>{postDetails.title}</h2>
-          <p>{postDetails.content}</p>
-          <p>Tags:</p>
+      <CardImg top src={`${postDetails.imageLocation}`} alt={`Image for ${postDetails.title}`} />
+      <CardBody>
+        <h2 className="text-left px2">{postDetails.title}</h2>
+        <hr />
+        <p className="text-left px2">Content: {postDetails.content}</p>
+        <p className="text-left px2">Published On: {new Date(postDetails.publishDateTime).toLocaleDateString()}</p>
+        <p className="text-left px2">
+          Posted By: {postDetails.userProfile.displayName}
+        </p>
+        <p>Tags:</p>
           {postDetails.tags?.map((tag) => (
             <span key={tag.id}>
               {tag.name} 
@@ -86,9 +97,14 @@ const handleSaveTags = () => {
                 {tag.name}
               </div>
             ))}
+        <Link to={`/comments/${postDetails.id}`} 
+              className="comments-link ml-auto" 
+              style={{position: "absolute", right: "1.5rem"}}>
+          <Button color="primary">View Comments</Button>
+        </Link>
             <Button color="success" outline onClick={handleSaveTags}>Save Tags</Button>
           </div>
-        </CardBody>
+      </CardBody>
       </Card>
     </>
   );
