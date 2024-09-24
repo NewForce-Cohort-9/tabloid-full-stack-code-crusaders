@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Row, Form, Input, Col, Label } from "reactstrap";
-import { addPost, getPostById } from "../../Managers/PostManager.js";
+import { addPost } from "../../Managers/PostManager.js";
 import { getAllCategories } from "../../Managers/CategoryManager.js"
 
 export const PostCreate = () => {
     const [post, setPost] = useState({});
     const [postCategories, setPostCategories] = useState([]);
-    const { id } = useParams();
+    // const [userProfileId, setUserProfileId] = useState("");
+    // const [imageLocation, setImageLocation] = useState("");
+    // const [title, setTitle] = useState("");
+    // const [content, setContent] = useState("");
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   getPostById(id).then((postObj) => setPost(postObj));
-  // }, [id]);
-
   useEffect(() => {
     getAllCategories().then(categoryArr => setPostCategories(categoryArr))
-}, []);
+}, [])
+
+if (!postCategories.length > 0) {
+    return <div>No Data Yet!</div>
+}
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     const newPost = {
+//         imageLocation,
+//         title,
+//         content,
+//         userProfileId: +userProfileId,
+//     };
+//     addPost(newPost).then((p) => {
+//       navigate("/Post");
+//     });
+//   };
 
   const createPostObj = () => {
     let user = localStorage.getItem("userProfile")
@@ -38,6 +54,11 @@ export const PostCreate = () => {
       <Form>
         <Row className="row-cols-lg-auto g-3 align-items-center">
           <Col>
+            {/* <Label for="userId">User Id (For Now...)</Label>
+            <Input
+                id="userId"
+                onChange={(e) => setUserProfileId(e.target.value)}
+            /> */}
             <Label for="imageLocation">Image URL</Label>
             <Input
                 id="imageLocation"
