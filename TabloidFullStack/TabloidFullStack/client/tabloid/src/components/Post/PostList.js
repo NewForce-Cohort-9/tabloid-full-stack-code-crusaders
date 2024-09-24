@@ -16,7 +16,7 @@ export const PostList = () => {
     getPosts();
   }, []); 
 
-  return (
+ return (
     <>
     <div className="container">
       <div className="row justify-content-center">
@@ -34,5 +34,5 @@ export const PostList = () => {
       </div>
     </div>
     </>
-  );
+  ); 
 };
