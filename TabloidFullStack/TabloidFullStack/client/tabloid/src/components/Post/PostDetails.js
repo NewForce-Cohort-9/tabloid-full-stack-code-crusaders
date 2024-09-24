@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { addTagsToPost, getPostById, removeTagFromPost } from "../../Managers/PostManager.js";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button, Card, CardBody, Input, CardImg } from "reactstrap";
 import { getAllTags } from "../../Managers/TagManager.js";
 
@@ -60,6 +60,11 @@ const handleSaveTags = () => {
 
   return (
     <>
+      <div  style={{width: "100%", display: "flex", justifyContent: "center"}}>
+        <Link to="/post" key="post">
+          <Button color="info" className="mt-3">Return to Posts</Button>
+        </Link>
+      </div>
       <Card className="m-4">
       <CardImg top src={`${postDetails.imageLocation}`} alt={`Image for ${postDetails.title}`} />
       <CardBody>
@@ -92,16 +97,13 @@ const handleSaveTags = () => {
                 {tag.name}
               </div>
             ))}
-            <Button color="success" outline onClick={handleSaveTags}>Save Tags</Button>
-          </div>
-        <Link to="/post" key="post">
-          <Button color="info">Return to Posts</Button>
-        </Link>
         <Link to={`/comments/${postDetails.id}`} 
               className="comments-link ml-auto" 
               style={{position: "absolute", right: "1.5rem"}}>
           <Button color="primary">View Comments</Button>
         </Link>
+            <Button color="success" outline onClick={handleSaveTags}>Save Tags</Button>
+          </div>
       </CardBody>
       </Card>
     </>
