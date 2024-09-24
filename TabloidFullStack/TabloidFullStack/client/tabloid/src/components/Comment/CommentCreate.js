@@ -1,36 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { addComment } from "../../Managers/CommentManager.js";
+import { useParams } from 'react-router-dom';
 
 
 
-export const AddComment = ({ postId, userProfileId }) => {
+export const CommentCreate = () => {
+    const postId = useParams();
+    const [userProfileId, setUserProfileId] = useState(null);
     const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+        if (userProfile && userProfile.id) {
+            setUserProfileId(userProfile.id);
+        }
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const comment = {
-            postId,
-            userProfileId,
-            subject,
-            content,
+            postId: postId.id,
+            userProfileId: userProfileId,
+            subject: subject,
+            content: content,
             createDateTime: new Date().toISOString()
         }
-        addComment(comment).then(() => {
+        try {
+            await addComment(comment);
             window.alert("Comment added successfully");
-            navigate(`/comments/${postId}`);
-        })
+            navigate(`/comments/${postId.id}`);
+        } catch (error) {
+            console.error("There was an error while trying to add comment:", error);
+        }
     };
 
         
 
     return (
         <Form onSubmit={(e) => { handleSubmit(e); }}>
-            <FormGroup>
+            <FormGroup className="mt-4">
                 <Label for="subject">Subject</Label>
                 <Input
                     type="text"
@@ -41,7 +54,7 @@ export const AddComment = ({ postId, userProfileId }) => {
                     required
                 />
             </FormGroup>
-            <FormGroup>
+            <FormGroup className="mt-4">
                 <Label for="content">Content</Label>
                 <Input
                     type="textarea"
@@ -52,7 +65,7 @@ export const AddComment = ({ postId, userProfileId }) => {
                     required
                 />
             </FormGroup>
-            <Button type="submit">Add Comment</Button>
+            <Button type="submit">Save</Button>
         </Form>
     );
 };

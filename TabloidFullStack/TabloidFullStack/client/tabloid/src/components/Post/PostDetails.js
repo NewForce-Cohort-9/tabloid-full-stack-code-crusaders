@@ -97,7 +97,7 @@ const handleSaveTags = () => {
                 {tag.name}
               </div>
             ))}
-        <Link to={`/comments/add/${id}`} 
+        <Link to={`/comments/add/${postDetails.id}`} 
               className="comments-link ml-auto" 
               style={{position: "absolute", right: "47%"}}>
           <Button color="dark" outline>Add Comment</Button>
