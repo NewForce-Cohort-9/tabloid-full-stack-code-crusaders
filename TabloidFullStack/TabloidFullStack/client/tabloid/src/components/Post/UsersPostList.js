@@ -14,32 +14,19 @@ export const UsersPostList = () => {
 
   return (
     <>
-    <div className="container pt-5">
+      <div className="container pt-5">
         <div>
-            <h1>My Posts</h1>
-            <Link to="/post/add">
-                <Button color="info">
-                    Create New Post
-                </Button>
-            </Link>
+          <h1>My Posts</h1>
+          <Link to="/post/add">
+            <Button color="info">Create New Post</Button>
+          </Link>
         </div>
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                </tr>
-            </thead>
-            <tbody>
-                {usersPosts.length > 0 && usersPosts.map(post => (
-                    <tr key={post.id}>
-                        <Post post={post}  /> 
-                    </tr>
-                ))}
-             </tbody>
-        </table>
-    </div>
-</>
+        <div className="cards-column">
+          {usersPosts.map((post) => (
+              <Post key={post.id} post={post} />
+            ))}
+        </div>
+      </div>
+    </>
   );
 };
