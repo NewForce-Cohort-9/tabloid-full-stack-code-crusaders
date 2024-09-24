@@ -56,6 +56,7 @@ namespace TabloidFullStack.Controllers
         {
             post.CreateDateTime = DateTime.Now;
             post.PublishDateTime = DateTime.Now;
+            post.UserProfileId = 1;
             _postRepository.Add(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
