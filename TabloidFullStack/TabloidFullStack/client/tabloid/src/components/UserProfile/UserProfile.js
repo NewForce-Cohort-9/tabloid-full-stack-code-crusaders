@@ -9,10 +9,6 @@ export const UserProfile = ({ user }) => {
         navigate(`/user/edit/${user.id}`);
     };
 
-    const handleDelete = () => {
-        navigate(`/user/delete/${user.id}`);
-    };
-
     const handleDeactivate = () => {
         if (window.confirm("Are you sure you want to deactivate this user?")) {
             deactivateUser(user.id).then(() => window.location.reload());
@@ -40,15 +36,12 @@ export const UserProfile = ({ user }) => {
                     {user.userType.name} {/* Adjusted to access userType name */}
                 </p>
                 <Button color="primary" outline size="sm" onClick={handleEdit}>
-                    Edit
-                </Button>
-                <Button color="danger" size="sm" onClick={handleDelete}>
-                    Delete
+                    Edit User Type
                 </Button>
                 {!user.isDeactivated ? (
-                    <Button color="danger" onClick={handleDeactivate}>Deactivate</Button>
+                    <Button color="danger" size="sm" onClick={handleDeactivate}>Deactivate</Button>
                 ) : (
-                    <Button color="success" outline onClick={handleReactivate}>Reactivate</Button>
+                    <Button color="success" outline size="sm" onClick={handleReactivate}>Reactivate</Button>
                 )}
             </CardBody>
         </Card>

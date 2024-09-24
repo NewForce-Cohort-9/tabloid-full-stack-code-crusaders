@@ -82,5 +82,18 @@ namespace TabloidFullStack.Controllers
             return Ok(deactivatedUsers);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateUserType(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+
+            _userRepository.UpdateUserType(userProfile);
+            return NoContent();
+        }
+
+
     }
 }

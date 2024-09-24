@@ -82,7 +82,22 @@ export const getUserById = (id) => {
       console.error("Error fetching user by ID:", error);
       return null;
     });
-};
+  };
+  
+  export const getUserByType = (UserType) => {
+    return fetch(`${apiUrl}/api/userprofile/${UserType}`)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching user by UserType:", error);
+      return null;
+    });
+  };
 
 export const deactivateUser = (id) => {
   return fetch(`${apiUrl}/api/userprofile/deactivate/${id}`, {
@@ -99,4 +114,15 @@ export const reactivateUser = (id) => {
 export const getDeactivatedUsers = () => {
   return fetch(`${apiUrl}/api/userprofile/deactivated`).then(res => res.json());
 };
+
+export const editUserType = (userProfile) => {
+  return fetch(`${apiUrl}/api/userprofile/${userProfile.id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userProfile) // Send the userProfile in the body
+  });
+};
+
 
