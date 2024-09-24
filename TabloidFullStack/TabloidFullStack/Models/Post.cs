@@ -31,5 +31,7 @@ namespace TabloidFullStack.Models
         public Category? Category { get; set; }
 
         public UserProfile? UserProfile { get; set; }
+
+        public List<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

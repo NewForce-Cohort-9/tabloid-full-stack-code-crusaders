@@ -38,3 +38,20 @@ export const deletePost = (postId) => {
         method: "DELETE"
     })
 }
+  // Fetch to add tags with a post
+export const addTagsToPost = (postId, tagIds) => {
+  return fetch(`${apiUrl}/${postId}/tags`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(tagIds),
+  });
+};
+
+// Fetch to remove a tag from a post
+export const removeTagFromPost = (postId, tagId) => {
+  return fetch(`${apiUrl}/${postId}/tags/${tagId}`, {
+    method: "DELETE",
+  });
+};
