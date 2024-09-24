@@ -19,3 +19,10 @@ export const getAllPosts = () => {
       body: JSON.stringify(singlePost),
     });
   };
+
+  //fetch to get all Posts by User Profile id
+  //https://localhost:5001/api/Post/GetUserPostsByUserProfileId/:id
+export const getPostsByUserId = (id) => {
+  return fetch(`${apiUrl}/GetUserPostsByUserProfileId/${id}`)
+  .then((res) => res.json())
+}

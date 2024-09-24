@@ -80,5 +80,17 @@ namespace TabloidFullStack.Controllers
             _postRepository.Delete(id);
             return NoContent();
         }
+
+        //GET api/<PostController>
+        [HttpGet("GetUserPostsByUserProfileId/{id}")]
+        public IActionResult GetUserPostsByUserProfileId(int id)
+        {
+            var post = _postRepository.GetUserPostsByUserProfileId(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
     }
 }
