@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
 export const UsersPostList = () => {
-  const [usersPosts, setUsersPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const userProfileId = JSON.parse(localStorage.getItem("userProfile")).id;
 
   useEffect(() => {
-    getPostsByUserId(userProfileId).then((data) => setUsersPosts(data));
+    getPostsByUserId(userProfileId).then((data) => setPosts(data));
   }, [userProfileId]);
 
   return (
@@ -22,7 +22,7 @@ export const UsersPostList = () => {
           </Link>
         </div>
         <div className="cards-column">
-          {usersPosts.map((post) => (
+          {posts.map((post) => (
               <Post key={post.id} post={post} />
             ))}
         </div>
