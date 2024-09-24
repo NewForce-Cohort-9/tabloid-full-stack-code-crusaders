@@ -27,15 +27,11 @@ namespace TabloidFullStack.Models
         public int CategoryId { get; set; }
 
         public int UserProfileId { get; set; }
-<<<<<<< HEAD
 
         public Category? Category { get; set; }
 
         public UserProfile? UserProfile { get; set; }
-=======
-        public UserProfile UserProfile { get; set; }
 
         public List<Tag> Tags { get; set; } = new List<Tag>();
->>>>>>> main
     }
 }
