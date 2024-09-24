@@ -98,38 +98,56 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName
-                          FROM Post p
-                               LEFT JOIN UserProfile up on up.Id = p.UserProfileId
-                         WHERE p.Id = @id";
+                SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName,
+                       t.Id as TagId, t.Name as TagName
+                FROM Post p
+                LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                LEFT JOIN PostTag pt ON p.Id = pt.PostId
+                LEFT JOIN Tag t ON pt.TagId = t.Id
+                WHERE p.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     Post post = null;
 
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        post = new Post()
+                        if (post == null)
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            Title = DbUtils.GetString(reader, "Title"),
-                            Content = DbUtils.GetString(reader, "Content"),
-                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                            UserProfile = new UserProfile()
+                            post = new Post()
                             {
-                                DisplayName = DbUtils.GetString(reader, "DisplayName")
-                            }
-                        };
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Title = DbUtils.GetString(reader, "Title"),
+                                Content = DbUtils.GetString(reader, "Content"),
+                                ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                                PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                UserProfile = new UserProfile()
+                                {
+                                    DisplayName = DbUtils.GetString(reader, "DisplayName")
+                                },
+                                Tags = new List<Tag>() // Initialize the Tags list
+                            };
+                        }
+
+                        if (DbUtils.IsNotDbNull(reader, "TagId"))
+                        {
+                            post.Tags.Add(new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName")
+                            });
+                        }
                     }
+
                     reader.Close();
 
                     return post;
                 }
             }
         }
+
 
         public List<Post> GetUserPostsByUserProfileId(int userProfileId)
         {
@@ -252,6 +270,51 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public void AddTagsToPost(int postId, List<int> tagIds)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    foreach (var tagId in tagIds)
+                    {
+                        cmd.CommandText = @"
+                    INSERT INTO PostTag (PostId, TagId)
+                    VALUES (@postId, @tagId)";
+
+                        DbUtils.AddParameter(cmd, "@postId", postId);
+                        DbUtils.AddParameter(cmd, "@tagId", tagId);
+
+                        // Execute the query for each tag
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+
+        public void RemoveTagFromPost(int postId, int tagId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                DELETE FROM PostTag
+                WHERE PostId = @postId AND TagId = @tagId";
+
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+                    DbUtils.AddParameter(cmd, "@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
 
         private Post NewPostFromReader(SqlDataReader reader)
