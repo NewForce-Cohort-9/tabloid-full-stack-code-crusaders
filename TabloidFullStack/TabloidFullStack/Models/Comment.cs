@@ -22,5 +22,9 @@ namespace TabloidFullStack.Models
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime CreateDateTime { get; set; }
+
+        public UserProfile? UserProfile { get; set; }
+
+        public Post? Post { get; set; }
     }
 }
