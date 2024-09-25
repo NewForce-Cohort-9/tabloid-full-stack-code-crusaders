@@ -5,3 +5,13 @@ export const getCommentsByPostId = (id) => {
     .then((res) => res.json())
 }
 
+export const addComment =  (singleComment) => {
+    return fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(singleComment)
+    });
+};
+

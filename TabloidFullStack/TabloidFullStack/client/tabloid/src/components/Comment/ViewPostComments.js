@@ -27,6 +27,11 @@ export const CommentList = () => {
                     <h2 style={{textAlign: "center", margin: "1.5rem 0"}}>Comments for Post: "{comments[0]?.post.title}"</h2>
                     <div className="row justify-content-center" style={{marginBottom: "1.5rem"}}>
                         <div className="col text-center" style={{marginBottom: "1.5rem"}}>
+                            <Link to={`/comments/add/${id}`} 
+                                className="comments-link ml-auto" 
+                                style={{position: "absolute", left: "4rem"}}>
+                            <Button color="dark" outline>Add Comment</Button>
+                            </Link>
                             <Link to={`/post/${comments[0]?.post.id}`}>
                                 <Button color="info">Back to Post</Button>
                             </Link>
@@ -45,6 +50,11 @@ export const CommentList = () => {
                     <div className="row justify-content-center" style={{marginBottom: "1.5rem"}}>
                         <h2 style={{textAlign: "center", margin: "1.5rem 0"}}>There are no comments for this post.</h2>
                         <div className="col text-center" style={{marginBottom: "1.5rem"}}>
+                                <Link to={`/comments/add/${id}`} 
+                                        className="comments-link ml-auto" 
+                                        style={{display: "flex", justifyContent: "center", margin: "2rem 0", textDecoration: "none", color: "inherit"}}>
+                                    <Button color="dark" outline>Add Comment</Button>
+                                </Link>
                                 <Button color="secondary" onClick={() => navigate(-1)}>Back to Post</Button>
                         </div>
                     </div>
