@@ -34,6 +34,9 @@ namespace TabloidFullStack.Models
         public int UserTypeId { get; set; }
         public UserType UserType { get; set; }
 
+        // New Field to track deactivated status
+        public bool IsDeactivated { get; set; }
+
         public string FullName
         {
             get

@@ -124,5 +124,16 @@ namespace TabloidFullStack.Utils
         {
             return value ?? DBNull.Value;
         }
+
+        public static bool GetBoolean(SqlDataReader reader, string column)
+        {
+            var ordinal = reader.GetOrdinal(column);
+            if (reader.IsDBNull(ordinal))
+            {
+                return false; // or handle nulls as needed
+            }
+            return reader.GetBoolean(ordinal);
+        }
+
     }
 }
