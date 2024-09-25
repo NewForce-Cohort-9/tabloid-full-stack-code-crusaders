@@ -59,5 +59,41 @@ namespace TabloidFullStack.Controllers
                 new { email = userProfile.Email },
                 userProfile);
         }
+
+        [HttpPut("deactivate/{id}")]
+        public IActionResult DeactivateUser(int id)
+        {
+            _userRepository.DeactivateUser(id); // Calls the repository method
+            return NoContent();
+        }
+
+
+        [HttpPut("reactivate/{id}")]
+        public IActionResult ReactivateUser(int id)
+        {
+            _userRepository.ReactivateUser(id);
+            return NoContent();
+        }
+
+        [HttpGet("deactivated")]
+        public IActionResult GetDeactivatedUsers()
+        {
+            var deactivatedUsers = _userRepository.GetDeactivatedUsers();
+            return Ok(deactivatedUsers);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUserType(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+
+            _userRepository.UpdateUserType(userProfile);
+            return NoContent();
+        }
+
+
     }
 }
