@@ -41,11 +41,17 @@ namespace TabloidFullStack.Controllers
             return Ok();
         }
 
-        // GET: CommentController/Create
+        // GET: CommentController/Comments/
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Comment([FromBody] Comment comment)
         {
-            return Ok();
+            if (comment == null)
+            {
+                return BadRequest();
+            }
+
+            _commentRepository.AddCommentByPostId(comment);
+            return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
 
 
