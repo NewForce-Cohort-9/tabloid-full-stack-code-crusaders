@@ -19,19 +19,6 @@ export const PostEdit = () => {
             setPost(postToEdit);
         });
       }, [id]);
-    
-    //   const handleSave = (e) => {
-    //     e.preventDefault();
-    //     const updatePost = {
-    //       id: parseInt(id),
-    //       title,
-    //       content,
-    //       imageLocation
-    //     };
-    //     editPost(updatePost).then(() => {
-    //       navigate("/Post");
-    //     });
-    //   };
 
     useEffect(() => {
         getAllCategories().then(categoryArr => setPostCategories(categoryArr))
@@ -57,14 +44,9 @@ export const PostEdit = () => {
             <Form>
                 <Row className="row-cols-lg-auto g-3 align-items-center">
                     <Col>
-                        {/* <Label for="userId">User Id (For Now...)</Label>
-                        <Input
-                            id="userId"
-                            onChange={(e) => setUserProfileId(e.target.value)}
-                        /> */}
                         <Label for="imageLocation">Image URL</Label>
                         <Input
-                            id="imageLocation"
+                            id="editImageLocation"
                             type="text"
                             placeholder={post.imageLocation}
                             onChange={(e) => {
@@ -75,7 +57,7 @@ export const PostEdit = () => {
                         />
                         <Label for="title">Title</Label>
                         <Input
-                        id="post"
+                        id="editPost"
                         type="text"
                         placeholder={post.title}
                         onChange={(e) => {
@@ -103,7 +85,7 @@ export const PostEdit = () => {
                         <br />
                         <Label for="content">Content</Label>
                         <Input
-                            id="content"
+                            id="editContent"
                             type="text"
                             placeholder={post.content}
                             onChange={(e) => {
