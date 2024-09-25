@@ -6,11 +6,8 @@ import { Button, Form, Col, Input, Label, Row } from "reactstrap"
 
 export const PostEdit = () => {
     const { id } = useParams();
-    const [postCategories, setPostCategories] = useState([]);
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [imageLocation, setImageLocation] = useState("");
     const [post, setPost] = useState({});
+    const [postCategories, setPostCategories] = useState([]);
 
     const navigate = useNavigate();
 
@@ -22,76 +19,88 @@ export const PostEdit = () => {
             setPost(postToEdit);
         });
       }, [id]);
-    
-      const handleSave = (e) => {
-        e.preventDefault();
-        const updatePost = {
-          id: parseInt(id),
-          title,
-          content,
-          imageLocation
-        };
-        editPost(updatePost).then(() => {
-          navigate("/Post");
-        });
-      };
 
     useEffect(() => {
         getAllCategories().then(categoryArr => setPostCategories(categoryArr))
     }, [])
 
+    const editPostObj = () => {
+        let user = localStorage.getItem("userProfile")
+        const parsedUser = JSON.parse(user)
+        
+        let postCopy = {...post}
+        postCopy.UserProfileId = parsedUser.id
+        postCopy.IsApproved = true
+    
+        editPost(postCopy).then(() => {
+                  navigate("/Post");
+                });
+        }
+
     return (
         <>
-            <div className="create-container">
+            <div className="edit-container">
             <h1>Edit Post: {post.title}</h1>
             <Form>
                 <Row className="row-cols-lg-auto g-3 align-items-center">
                     <Col>
-                        <Label for="addPostTitle">Edit Title</Label>
-                        <Input id="addPostTitle"
+                        <Label for="imageLocation">Image URL</Label>
+                        <Input
+                            id="editImageLocation"
+                            type="text"
+                            placeholder={post.imageLocation}
+                            onChange={(e) => {
+                                let postObj = {...post}
+                                postObj.ImageLocation = e.target.value
+                                setPost(postObj)
+                            }}
+                        />
+                        <Label for="title">Title</Label>
+                        <Input
+                        id="editPost"
+                        type="text"
                         placeholder={post.title}
                         onChange={(e) => {
-                            setTitle(e.target.value)
-                        }} value={title}>
-                        </Input>
+                            let postObj = {...post}
+                            postObj.Title = e.target.value
+                            setPost(postObj)}}
+                        />
+                        <Label for="category">Select Post Category</Label>
                         <br />
-                        <Label for="addPostContent">Content</Label>
-                        <Input id="addPostContent" 
-                        placeholder={post.content}
-                        onChange={(e) => {
-                            setContent(e.target.value)
-                            }}value={content}>
-                        </Input>
-                        <br/>
-                        <Label for="addPostImageLocation">Image Url</Label>
-                        <Input id="addPostImageLocation" 
-                        onChange={(e) => {
-                            setImageLocation(e.target.value)
-                        }} value={imageLocation}>
-                        </Input>
-                        <br/>
-                        <select name="categories" id="createPostCategories" 
+                        <select name="categories" id="editPostCategories" 
                             onChange={(e) => {
                                 let copy = {...post}
-                                copy.categoryId = parseInt(e.target.value)
+                                copy.categoryId = e.target.value
                                 setPost(copy)
-                            }}>
+                                }}>
                             <option>Select New Post Category:</option>
-                            {postCategories.map(category => {
-                                if (post.categoryId === category.id) {
-                                    return <option value={`${category.id}`} selected>{category.name}</option>
-                                } else {
-                                    return <option value={`${category.id}`} >{category.name}</option>
-                                }
-                            })}
+                                {postCategories.map(category => {
+                                    if (post.categoryId === category.id) {
+                                        return <option value={`${category.id}`} selected>{category.name}</option>
+                                    } else {
+                                        return <option value={`${category.id}`} >{category.name}</option>
+                                    }
+                                })}
                         </select>
                         <br />
-                        <Button id="submitNewPost" type="submit" 
-                        onClick={(e) => handleSave(e)}>
-                            Update Post!
+                        <Label for="content">Content</Label>
+                        <Input
+                            id="editContent"
+                            type="text"
+                            placeholder={post.content}
+                            onChange={(e) => {
+                                let postObj = {...post}
+                                postObj.Content = e.target.value
+                                setPost(postObj)
+                            }}
+                        />
+                        <br />
+                        <Button color="info" onClick={() => editPostObj()}>
+                            Submit
                         </Button>
-                        <br/>
-                        <Link to={`/post`}>Back to Post List</Link>
+                        <Link to="/post" key="post">
+                            <Button color="info bg-info-subtle">Return to Posts</Button>
+                        </Link>
                     </Col>
                 </Row>
             </Form>
