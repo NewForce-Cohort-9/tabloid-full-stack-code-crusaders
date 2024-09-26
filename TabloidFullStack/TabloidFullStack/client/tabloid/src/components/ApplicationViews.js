@@ -20,6 +20,7 @@ import { UserProfileList } from "./UserProfile/UserProfileList.js";
 import { UserProfileDetails } from "./UserProfile/UserProfileDetails.js";
 import { CommentCreate } from "./Comment/CommentCreate.js";
 import { EditUserType } from "./UserProfile/EditUserType.js";
+import { ReactionList } from "./Reaction/ReactionList.js";
 
 export default function ApplicationViews() {
 
@@ -45,6 +46,7 @@ export default function ApplicationViews() {
         <Route path="/tag/add" element={<CreateTag />} />
         <Route path="/tag/edit/:id" element={<EditTag />} /> 
         <Route path="/tag/delete/:id" element={<DeleteTag />} />
+        <Route path="/reaction" element={<ReactionList />}/>
       </Routes>
    );
  
