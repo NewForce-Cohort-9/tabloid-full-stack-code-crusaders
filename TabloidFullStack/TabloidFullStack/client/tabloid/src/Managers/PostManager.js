@@ -6,7 +6,7 @@ export const getAllPosts = () => {
 };
 
 export const getPostById = (id) => {
-  return fetch(`${apiUrl}/${id}`).then((res) => res.json());
+  return fetch(`${apiUrl}/${id}`).then((res) => res.json())
 };
 
 //fetch to add new Post to database

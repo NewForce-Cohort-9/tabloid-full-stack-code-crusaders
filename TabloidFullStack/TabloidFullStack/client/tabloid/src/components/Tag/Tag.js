@@ -4,6 +4,7 @@ import { Button, Card, CardBody } from 'reactstrap';
 
 export const Tag = ({tag}) => {
   const navigate = useNavigate();
+  const userTypeId = localStorage.getItem("userTypeId");
 
   const handleEdit = () => {
     navigate(`/tag/edit/${tag.id}`)
@@ -13,6 +14,10 @@ export const Tag = ({tag}) => {
     navigate(`/tag/delete/${tag.id}`)
   }
 
+  if (userTypeId !== "1") {
+    return null; // Render nothing if the userTypeId is not 1
+  }
+  
   return (
     <Card>
       <CardBody>

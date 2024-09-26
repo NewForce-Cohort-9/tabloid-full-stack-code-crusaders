@@ -5,9 +5,11 @@ import { Button, Row, Form, Input, Col } from "reactstrap";
 
 export const CategoryCreate = () => {
   const [name, setName] = useState("");
+  const userTypeId = localStorage.getItem("userTypeId");
 
+  
   const navigate = useNavigate();
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const newCategory = {
@@ -17,6 +19,10 @@ export const CategoryCreate = () => {
       navigate("/Category");
     });
   };
+  
+  if (userTypeId !== "1") {
+    return null; // Render nothing if the userTypeId is not 1
+  }
 
   return (
     <div className="create-container">
