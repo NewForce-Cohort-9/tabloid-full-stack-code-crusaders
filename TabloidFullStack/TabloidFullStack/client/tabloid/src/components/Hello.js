@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 export default function Hello() {
-  const [userFName, SetUserFName] = useState([]);
+  const [userFName, SetUserFName] = useState(null);
 
   useEffect(() => {
-    SetUserFName(localStorage.userProfile?.split(':' && '"')[5]);
+    const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+    if (userProfile && userProfile.firstName) {
+      SetUserFName(userProfile.firstName)
+    }
   }, []);
 
   return (
