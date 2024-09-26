@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Azure;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Hosting;
 using TabloidFullStack.Models;
 using TabloidFullStack.Utils;
 
@@ -322,7 +324,8 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     var sql =
-                        @"SELECT p.Id AS PostId, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName,
+                        @"SELECT p.Id AS PostId, p.Title, p.Content, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, 
+                               p.UserProfileId, up.DisplayName,
                                t.Id as TagId, t.Name as TagName 
                         FROM Post p 
                         LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
@@ -350,8 +353,9 @@ namespace TabloidFullStack.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "PostId"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            Content = DbUtils.GetString(reader, "Caption"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "PostDateCreated"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
@@ -360,6 +364,15 @@ namespace TabloidFullStack.Repositories
                             },
                             Tags = new List<Tag>() // Initialize the Tags list
                         });
+
+                        if (DbUtils.IsNotDbNull(reader, "TagId"))
+                        {
+                            var Tags = new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName")
+                            };
+                        }
                     }
 
                     reader.Close();
