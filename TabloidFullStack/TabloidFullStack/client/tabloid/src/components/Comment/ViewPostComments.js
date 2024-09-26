@@ -24,7 +24,9 @@ export const CommentList = () => {
     return (
         <>
         {loading ? (
-            <h1 style={{textAlign: "center", fontSize: "40px"}}>Loading...</h1>
+            <h1 style={{textAlign: "center", fontSize: "40px", marginTop: "5rem"}}>
+                Loading...
+            </h1>
         ) : (
             <div className="container">
                 <div className="row justify-content-center">
