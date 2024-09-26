@@ -56,3 +56,9 @@ export const removeTagFromPost = (postId, tagId) => {
     method: "DELETE",
   });
 };
+
+// Fetch to search posts by tag
+export const getSearchedPostsByTag = (q) => {
+  return fetch(`${apiUrl}/search?q=${q}`) 
+    .then((res) => res.json())
+};

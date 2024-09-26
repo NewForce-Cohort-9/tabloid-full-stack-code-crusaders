@@ -13,5 +13,7 @@ namespace TabloidFullStack.Repositories
         void Delete(int id);
         void AddTagsToPost(int id, List<int> tagIds);
         void RemoveTagFromPost(int postId, int tagId);
+
+        public List<Post> SearchByTag(string criterion, bool sortDescending);
     }
 }

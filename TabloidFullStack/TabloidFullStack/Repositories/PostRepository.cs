@@ -31,7 +31,7 @@ namespace TabloidFullStack.Repositories
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                         WHERE IsApproved = 1 AND PublishDateTime <= CURRENT_TIMESTAMP
-                    ORDER BY p.PublishDateTime DESC";
+                        ORDER BY p.PublishDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
 
@@ -98,13 +98,13 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName,
-                       t.Id as TagId, t.Name as TagName
-                FROM Post p
-                LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                LEFT JOIN PostTag pt ON p.Id = pt.PostId
-                LEFT JOIN Tag t ON pt.TagId = t.Id
-                WHERE p.Id = @id";
+                        SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName,
+                               t.Id as TagId, t.Name as TagName
+                        FROM Post p
+                        LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                        LEFT JOIN PostTag pt ON p.Id = pt.PostId
+                        LEFT JOIN Tag t ON pt.TagId = t.Id
+                        WHERE p.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
@@ -157,14 +157,14 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-            SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime, 
-                   p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, 
-                   c.Name AS CategoryName, u.DisplayName as AuthorName
-            FROM Post p
-            LEFT JOIN Category c ON p.CategoryId = c.Id
-            LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
-            WHERE p.UserProfileId = @userProfileId
-            ORDER BY p.CreateDateTime DESC";
+                        SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime, 
+                               p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, 
+                               c.Name AS CategoryName, u.DisplayName as AuthorName
+                        FROM Post p
+                        LEFT JOIN Category c ON p.CategoryId = c.Id
+                        LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
+                        WHERE p.UserProfileId = @userProfileId
+                        ORDER BY p.CreateDateTime DESC";
 
                     cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
 
@@ -309,6 +309,62 @@ namespace TabloidFullStack.Repositories
                     DbUtils.AddParameter(cmd, "@tagId", tagId);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public List<Post> SearchByTag(string criterion, bool sortDescending)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    var sql =
+                        @"SELECT p.Id AS PostId, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName,
+                               t.Id as TagId, t.Name as TagName 
+                        FROM Post p 
+                        LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
+                        LEFT JOIN PostTag pt ON p.Id = pt.PostId
+                        LEFT JOIN Tag t ON pt.TagId = t.Id
+                        WHERE t.Name LIKE @Criterion"; // Search by tag name
+
+                    if (sortDescending)
+                    {
+                        sql += " ORDER BY p.CreateDateTime DESC";
+                    }
+                    else
+                    {
+                        sql += " ORDER BY p.CreateDateTime";
+                    }
+
+                    cmd.CommandText = sql;
+                    DbUtils.AddParameter(cmd, "@Criterion", $"%{criterion}%");
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Caption"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "PostDateCreated"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                DisplayName = reader.GetString(reader.GetOrdinal("DisplayName"))
+                            },
+                            Tags = new List<Tag>() // Initialize the Tags list
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
                 }
             }
         }
