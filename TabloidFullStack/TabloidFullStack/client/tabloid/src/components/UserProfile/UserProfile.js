@@ -4,11 +4,13 @@ import { deactivateUser, reactivateUser } from "../../Managers/UserProfileManage
 
 export const UserProfile = ({ user }) => {
     const navigate = useNavigate();
+    const userTypeId = localStorage.getItem("userTypeId");
 
+    
     const handleEdit = () => {
         navigate(`/user/edit/${user.id}`);
     };
-
+    
     const handleDeactivate = () => {
         if (window.confirm("Are you sure you want to deactivate this user?")) {
             deactivateUser(user.id).then(() => window.location.reload());
@@ -20,7 +22,11 @@ export const UserProfile = ({ user }) => {
             reactivateUser(user.id).then(() => window.location.reload());
         }
     };
-
+    
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+    }
+    
     return (
         <Card>
             <CardBody>

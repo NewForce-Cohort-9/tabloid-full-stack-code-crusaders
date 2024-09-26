@@ -10,7 +10,9 @@ export const CategoryEdit = () => {
   const [name, setName] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const userTypeId = localStorage.getItem("userTypeId");
 
+  
   useEffect(() => {
     getAllCategories().then((categories) => {
       const categoryToEdit = categories.find(
@@ -21,7 +23,7 @@ export const CategoryEdit = () => {
       }
     });
   }, [id]);
-
+  
   const handleSave = (e) => {
     e.preventDefault();
     const editCategory = {
@@ -32,6 +34,10 @@ export const CategoryEdit = () => {
       navigate("/Category");
     });
   };
+  
+  if (userTypeId !== "1") {
+    return null; // Render nothing if the userTypeId is not 1
+  }
 
   return (
     <div className="category-container">

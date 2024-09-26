@@ -23,6 +23,7 @@ import { EditUserType } from "./UserProfile/EditUserType.js";
 import { ReactionList } from "./Reaction/ReactionList.js";
 
 export default function ApplicationViews() {
+  const userTypeId = localStorage.getItem("userTypeId");
 
  return(
       <Routes>
@@ -35,18 +36,22 @@ export default function ApplicationViews() {
         <Route path="/post/add" element={<PostCreate />} />
         <Route path="/post/edit/:id" element={<PostEdit />} />
         <Route path="/post/delete/:id" element={<PostDelete />} />
-        <Route path="/user" element={<UserProfileList />} />
-        <Route path="/user/:id" element={<UserProfileDetails />} />
-        <Route path="/user/edit/:id" element={<EditUserType />} />
-        <Route path="/category" element={<CategoryList />} />
-        <Route path="/category/add" element={<CategoryCreate />} />
-        <Route path="/category/edit/:id" element={<CategoryEdit/>} />
-        <Route path="/category/delete/:id" element={<CategoryDelete />} />
-        <Route path="/tag" element={<TagList />} />
-        <Route path="/tag/add" element={<CreateTag />} />
-        <Route path="/tag/edit/:id" element={<EditTag />} /> 
-        <Route path="/tag/delete/:id" element={<DeleteTag />} />
-        <Route path="/reaction" element={<ReactionList />}/>
+        {userTypeId === "1" && (
+        <>
+          <Route path="/user" element={<UserProfileList />} />
+          <Route path="/user/:id" element={<UserProfileDetails />} />
+          <Route path="/user/edit/:id" element={<EditUserType />} />
+          <Route path="/category" element={<CategoryList />} />
+          <Route path="/category/add" element={<CategoryCreate />} />
+          <Route path="/category/edit/:id" element={<CategoryEdit />} />
+          <Route path="/category/delete/:id" element={<CategoryDelete />} />
+          <Route path="/tag" element={<TagList />} />
+          <Route path="/tag/add" element={<CreateTag />} />
+          <Route path="/tag/edit/:id" element={<EditTag />} />
+          <Route path="/tag/delete/:id" element={<DeleteTag />} />
+          <Route path="/reaction" element={<ReactionList/>} />
+        </>
+      )}
       </Routes>
    );
  

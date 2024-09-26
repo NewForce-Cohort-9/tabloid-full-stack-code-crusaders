@@ -7,7 +7,9 @@ export const UserProfileList = () => {
     const [userProfiles, setUserProfiles] = useState([]); // Active users
     const [deactivatedProfiles, setDeactivatedProfiles] = useState([]); // Deactivated users
     const [showDeactivated, setShowDeactivated] = useState(false); // Toggle for showing deactivated users
+    const userTypeId = localStorage.getItem("userTypeId");
 
+    
     // Fetch all active users (excluding deactivated users)
     useEffect(() => {
         getAllUsers().then(users => {
@@ -15,7 +17,7 @@ export const UserProfileList = () => {
             setUserProfiles(activeUsers);
         });
     }, []);
-
+    
     // Fetch all deactivated users when the button is clicked
     const viewDeactivatedUsers = () => {
         getDeactivatedUsers().then(setDeactivatedProfiles);
@@ -26,7 +28,11 @@ export const UserProfileList = () => {
     const hideDeactivatedUsers = () => {
         setShowDeactivated(false);
     };
-
+    
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+    }
+    
     return (
         <div>
             <h2>User Profiles</h2>

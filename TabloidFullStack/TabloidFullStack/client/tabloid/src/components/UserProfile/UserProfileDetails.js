@@ -6,11 +6,13 @@ import { Card, CardBody } from "reactstrap";
 export const UserProfileDetails = () => {
     const [userDetails, setUserDetails] = useState(null); // Initialize as null
     const { id } = useParams();
+    const userTypeId = localStorage.getItem("userTypeId");
 
+    
     useEffect(() => {
         getUserById(id)
-            .then((userObj) => {
-                if (userObj) { // Check if the response is not null or undefined
+        .then((userObj) => {
+            if (userObj) { // Check if the response is not null or undefined
                     setUserDetails(userObj);
                 } else {
                     console.error("No user data found");
@@ -20,8 +22,12 @@ export const UserProfileDetails = () => {
             .catch((error) => {
                 console.error("Error fetching user data:", error);
             });
-    }, [id]);
-
+        }, [id]);
+        
+        if (userTypeId !== "1") {
+            return null; // Render nothing if the userTypeId is not 1
+        }
+        
     if (!userDetails) {
         return <div>Loading or no data available...</div>; // Handle null case
     }

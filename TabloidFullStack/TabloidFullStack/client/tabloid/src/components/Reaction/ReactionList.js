@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAllReactions } from '../../Managers/ReactionManager.js';
 import { Link } from 'react-router-dom';
 import { Button, Col } from 'reactstrap';
+import { Reaction } from './Reaction.js';
 
 export const ReactionList = () => {
     const [reactions, setReactions] = useState([]);
@@ -11,7 +12,7 @@ export const ReactionList = () => {
     };
 
     useEffect(() => {
-        getAllReactions();
+        getReactions();
     }, []);
 
 
@@ -26,7 +27,7 @@ export const ReactionList = () => {
         </Link>
         </div>
         <div>
-        {Reaction.map((reaction) => (
+        {reactions.map((reaction) => (
           <ul>
             <Reaction key={reaction.id} reaction={reaction}/>
           </ul>
