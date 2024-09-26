@@ -13,13 +13,13 @@ export const Post = ({ post }) => {
         </h2>
         <p>{new Date(post.publishDateTime).toLocaleDateString()}</p>
         <p>Category: <em>{post.category.name}</em></p>
-        {/* <Link to={`/Users/${post.userProfileId}`} className="navbar-brand">
-            Posted by: {post.userProfile?.displayName}
-        </Link> */}
+        <p>Posted by: {post.userProfile?.displayName}</p>
         <Link to={`/post/edit/${post.id}`} key="post name">
           <Button color="primary" outline size="sm">Edit</Button>
         </Link>
-        <Button color="success" outline size="sm">Delete</Button>
+        <Link to={`/post/delete/${post.id}`} key="post name">
+          <Button color="success" outline size="sm">Delete</Button>
+        </Link>
         </CardBody>
     </Card>
   );

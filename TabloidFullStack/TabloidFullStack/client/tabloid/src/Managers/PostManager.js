@@ -29,22 +29,23 @@ export const getPostsByUserId = (userProfileId) => {
 
 //fetch to edit a Post
 export const editPost = (post) => {
-  return fetch(`${apiUrl}/api/Post/${post.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(post),
-  });
-};
+    return fetch(`${apiUrl}/${post.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post)
+    })
+}
 
 // fetch to delete a Post
 export const deletePost = (postId) => {
-  return fetch(`${apiUrl}/api/Post/${postId}`, {
-    method: "DELETE",
-  });
-};
-// Fetch to add tags with a post
+    return fetch(`${apiUrl}/${postId}`, {
+        method: "DELETE"
+    })
+}
+
+  // Fetch to add tags with a post
 export const addTagsToPost = (postId, tagIds) => {
   return fetch(`${apiUrl}/${postId}/tags`, {
     method: "POST",

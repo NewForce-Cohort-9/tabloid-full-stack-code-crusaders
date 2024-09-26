@@ -238,19 +238,18 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                UPDATE Post
-                SET 
-                    Title = @Title, 
-                    Content = @Content 
-                    ImageLocation = @ImageLocation,
-                    CategoryId = @CategoryId
-                WHERE Id = @id";
+                        UPDATE Post
+                           SET Title = @Title,
+                               Content = @Content,
+                               ImageLocation = @ImageLocation,
+                               CategoryId = @CategoryId
+                         WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
-                    DbUtils.AddParameter(cmd, "@ImageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
-                    DbUtils.AddParameter(cmd, "@id", post.Id);
+                    DbUtils.AddParameter(cmd, "@Id", post.Id);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -264,7 +263,7 @@ namespace TabloidFullStack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Post WHERE Id = @id";
+                    cmd.CommandText = "DELETE FROM Post WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
                 }
