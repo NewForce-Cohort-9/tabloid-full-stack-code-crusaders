@@ -5,6 +5,7 @@ import { Button, Col, Form, Input, Row } from "reactstrap";
 
 export const CreateTag = () => {
     const [name, setName] = useState("");
+    const userTypeId = localStorage.getItem("userTypeId");
 
     const navigate = useNavigate();
 
@@ -18,6 +19,10 @@ export const CreateTag = () => {
             navigate("/Tag");
         });
     };
+
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+      }
 
 
     return (

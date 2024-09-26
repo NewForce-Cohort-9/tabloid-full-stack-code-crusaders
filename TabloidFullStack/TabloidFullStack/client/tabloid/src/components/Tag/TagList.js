@@ -6,14 +6,20 @@ import { Button, Col } from "reactstrap";
 
 export const TagList = () => {
   const [tags, setTags] = useState([]);
+  const userTypeId = localStorage.getItem("userTypeId");
 
   const getTags = () => {
     getAllTags().then((allTags) => setTags(allTags));
   };
+  
 
   useEffect(() => {
     getTags();
   }, []);
+
+  if (userTypeId !== "1") {
+    return null; // Render nothing if the userTypeId is not 1
+  }
 
   return (
     <div>
