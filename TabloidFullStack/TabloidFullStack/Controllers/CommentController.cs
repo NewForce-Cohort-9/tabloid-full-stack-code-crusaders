@@ -67,7 +67,8 @@ namespace TabloidFullStack.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok();
+            _commentRepository.Delete(id);
+            return NoContent();
         }
 
 
