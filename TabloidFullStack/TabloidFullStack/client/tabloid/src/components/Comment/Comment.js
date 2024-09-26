@@ -1,4 +1,6 @@
-import { Card, CardBody, CardText, CardTitle } from "reactstrap";
+import { Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
+import React from "react";
+import { CommentDelete } from "./CommentDelete.js";
 
 
 export const CommentCard = ({ comment }) => {
@@ -15,7 +17,7 @@ export const CommentCard = ({ comment }) => {
     };
 
     return (
-    <Card className="mb-3">
+    <Card className="mb-3" style={{boxShadow: "2px 3px 10px gray"}}>
         <CardBody>
             <CardTitle tag="h5">{comment.subject}</CardTitle>
             <CardText>{comment.content}</CardText>
@@ -23,6 +25,11 @@ export const CommentCard = ({ comment }) => {
                 <small className="text-muted">By {comment.userProfile.displayName} on {formatDate(comment.createDateTime).split(',', [2]).join(' at')}</small>
             </CardText>
         </CardBody>
+            <Button className="ml-auto" color="danger" 
+                    style={{position: "absolute", right: "1rem", top: "0.75rem", border: "1px solid red"}}
+                    onClick={() => CommentDelete(comment)}>
+                Delete
+            </Button>
     </Card>
 )};
 
