@@ -2,26 +2,33 @@ const apiUrl = "https://localhost:5001/api/Post";
 
 //fetch to get list of Posts from the api
 export const getAllPosts = () => {
-    return fetch(apiUrl) 
-      .then((res) => res.json())
-  };
+  return fetch(apiUrl).then((res) => res.json());
+};
 
-  export const getPostById = (id) => {
-    return fetch(`${apiUrl}/${id}`).then(res => res.json())
-}
+export const getPostById = (id) => {
+  return fetch(`${apiUrl}/${id}`).then((res) => res.json());
+};
 
 //fetch to add new Post to database
-  export const addPost = (singlePost) => { 
-    return fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(singlePost),
-    });
-  };
+export const addPost = (singlePost) => {
+  return fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(singlePost),
+  });
+};
 
-  //fetch to edit a Post
+//https://localhost:5001/api/Post/MyPosts/1?userProfileId=1
+//fetch to get all Posts by User Profile id
+export const getPostsByUserId = (userProfileId) => {
+  return fetch(`${apiUrl}/MyPosts/${userProfileId}?userProfileId=${userProfileId}`).then((res) =>
+    res.json()
+  );
+};
+
+//fetch to edit a Post
 export const editPost = (post) => {
     return fetch(`${apiUrl}/${post.id}`, {
         method: "PUT",

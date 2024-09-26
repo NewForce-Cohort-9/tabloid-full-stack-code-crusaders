@@ -36,6 +36,17 @@ namespace TabloidFullStack.Controllers
             return Ok(post);
         }
 
+        [HttpGet("MyPosts/{userPofileId}")]
+        public IActionResult GetUserPostsByUserProfileId(int userProfileId)
+        {
+            var post = _postRepository.GetUserPostsByUserProfileId(userProfileId);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
         // GET api/<PostController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
@@ -109,5 +120,6 @@ namespace TabloidFullStack.Controllers
             _postRepository.RemoveTagFromPost(postId, tagId);
             return NoContent();
         }
+       
     }
 }
