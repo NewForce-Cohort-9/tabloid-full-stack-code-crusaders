@@ -7,7 +7,9 @@ export const CategoryDelete = () => {
     const [category, setCategory] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
+    const userTypeId = localStorage.getItem("userTypeId");
 
+    
     useEffect(() => {
         getAllCategories().then((categories) => {
             const categoryToDelete = categories.find((category) => category.id === parseInt(id));
@@ -16,13 +18,17 @@ export const CategoryDelete = () => {
             }
         });
     }, [id]);
-
+    
     const handleDelete = () => {
         deleteCategory(id).then(() => {
             navigate("/Category");
         });
     };
-
+    
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+    }
+    
     if (!category) return <p>Loading...</p>;
 
     return (

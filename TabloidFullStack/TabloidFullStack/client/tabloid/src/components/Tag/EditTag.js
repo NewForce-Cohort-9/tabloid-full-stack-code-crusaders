@@ -7,6 +7,7 @@ export const EditTag = () => {
     const [name, setName] = useState("");
     const { id } = useParams();
     const navigate = useNavigate();
+    const userTypeId = localStorage.getItem("userTypeId");
 
     useEffect(() => {
         // Fetching the current tag details
@@ -29,6 +30,10 @@ export const EditTag = () => {
             navigate("/Tag");  // Redirect to the TagList
         });
     };
+
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+      }
 
     return (
         <div className="edit-container">
