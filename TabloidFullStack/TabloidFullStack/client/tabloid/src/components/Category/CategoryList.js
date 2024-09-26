@@ -6,15 +6,21 @@ import { Link } from "react-router-dom";
 
 export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
+  const userTypeId = localStorage.getItem("userTypeId");
 
+  
   const getCategories = () => {
     getAllCategories().then((allCategories) => setCategories(allCategories));
   };
-
+  
   useEffect(() => {
     getCategories();
   }, []);
-
+  
+  if (userTypeId !== "1") {
+    return null; // Render nothing if the userTypeId is not 1
+  }
+  
   return (
     <div>
       <h2>Categories</h2>

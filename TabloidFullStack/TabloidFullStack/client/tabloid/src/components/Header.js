@@ -14,6 +14,8 @@ import {
 export default function Header({isLoggedIn, setIsLoggedIn}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const userTypeId = localStorage.getItem("userTypeId");
+
 
   return (
     <div>
@@ -34,6 +36,8 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               <NavItem>
                   <NavLink tag={RRNavLink} to="/Post/MyPosts">My Posts</NavLink> 
               </NavItem>
+              {userTypeId === "1" && (
+              <>
               <NavItem>
                   <NavLink tag={RRNavLink} to="/user">User Profiles</NavLink> 
               </NavItem>
@@ -43,6 +47,8 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               <NavItem>
                   <NavLink tag={RRNavLink} to="/Tag">Tag<br/>Management</NavLink> 
               </NavItem>       
+            </>
+              )}
             </>
             }
           </Nav>

@@ -7,6 +7,7 @@ export const DeleteTag = () => {
     const [tag, setTag] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
+    const userTypeId = localStorage.getItem("userTypeId");
 
     useEffect(() => {
         // Fetch the tag details based on the ID for confirmation
@@ -23,6 +24,10 @@ export const DeleteTag = () => {
             navigate("/Tag"); // Redirect to the TagList
         });
     };
+
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+      }
 
     if (!tag) return <p>Loading...</p>;
 

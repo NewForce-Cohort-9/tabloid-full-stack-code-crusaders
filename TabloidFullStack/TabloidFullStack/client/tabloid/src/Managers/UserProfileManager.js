@@ -6,6 +6,7 @@ export const login = (userObject) => {
     .then((userProfile) => {
       if (userProfile.id && !userProfile.isDeactivated) {
         localStorage.setItem("userProfile", JSON.stringify(userProfile));
+        localStorage.setItem("userTypeId", userProfile.userTypeId); // Storing UserTypeId separately
         return userProfile;
       } else if (userProfile.isDeactivated) {
         alert("Your account has been deactivated. Please contact the admin.");

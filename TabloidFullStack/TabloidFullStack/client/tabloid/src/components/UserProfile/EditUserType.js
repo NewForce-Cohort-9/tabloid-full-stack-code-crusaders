@@ -39,6 +39,12 @@ export const EditUserType = () => {
         });
     };
 
+    const userTypeId = localStorage.getItem("userTypeId");
+
+    if (userTypeId !== "1") {
+        return null; // Render nothing if the userTypeId is not 1
+    }
+
     return (
                 <div className="edit-container">
         <Card className="m-4">
