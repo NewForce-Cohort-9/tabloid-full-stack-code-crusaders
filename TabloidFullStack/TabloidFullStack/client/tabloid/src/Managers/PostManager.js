@@ -20,9 +20,10 @@ export const addPost = (singlePost) => {
   });
 };
 
+//https://localhost:5001/api/Post/MyPosts/1?userProfileId=1
 //fetch to get all Posts by User Profile id
 export const getPostsByUserId = (userProfileId) => {
-  return fetch(`${apiUrl}/MyPosts/${userProfileId}`).then((res) =>
+  return fetch(`${apiUrl}/MyPosts/${userProfileId}?userProfileId=${userProfileId}`).then((res) =>
     res.json()
   );
 };
