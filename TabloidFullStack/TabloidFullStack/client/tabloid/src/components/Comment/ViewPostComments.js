@@ -6,6 +6,7 @@ import { CommentCard } from "./Comment.js"
 
 export const CommentList = () => {
     const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const { id } = useParams();
 
@@ -13,12 +14,20 @@ export const CommentList = () => {
     
   
     useEffect(() => {
-      getCommentsByPostId(id).then(commentsList => setComments(commentsList));
+      getCommentsByPostId(id).then(commentsList => {
+        setComments(commentsList);
+        setLoading(false);
+    })
     }, [id]); 
 
 
     return (
         <>
+        {loading ? (
+            <h1 style={{textAlign: "center", fontSize: "40px", marginTop: "5rem"}}>
+                Loading...
+            </h1>
+        ) : (
             <div className="container">
                 <div className="row justify-content-center">
                     { comments.length > 0 ? 
@@ -63,6 +72,7 @@ export const CommentList = () => {
                     }
                 </div>
             </div>
+        )}
         </>
     )
 
