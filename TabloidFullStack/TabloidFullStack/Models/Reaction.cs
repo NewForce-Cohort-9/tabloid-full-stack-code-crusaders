@@ -11,6 +11,7 @@ namespace TabloidFullStack.Models
         [Required]
         [MaxLength(255)]
         public string ImageLocation { get; set; }
+        public int ReactionCount { get; set; }
 
     }
 }

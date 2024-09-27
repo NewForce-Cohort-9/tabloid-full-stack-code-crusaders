@@ -63,5 +63,13 @@ namespace TabloidFullStack.Controllers
             _reactionRepository.Delete(id);
             return NoContent();
         }
+
+        // ReactionController.cs
+        [HttpGet("post/{postId}")]
+        public IActionResult GetReactionsForPost(int postId)
+        {
+            var reactions = _reactionRepository.GetReactionsWithCountForPost(postId);
+            return Ok(reactions);
+        }
     }
 }

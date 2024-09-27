@@ -9,5 +9,6 @@ namespace TabloidFullStack.Repositories
         public void Add(Reaction reaction);
         public void Update(Reaction reaction);
         public void Delete(int reactionId);
+        public List<Reaction> GetReactionsWithCountForPost(int postId);
     }
 }

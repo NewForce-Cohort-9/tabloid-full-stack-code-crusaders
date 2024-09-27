@@ -15,7 +15,6 @@ export const ReactionList = () => {
         getReactions();
     }, []);
 
-
   return (
     <div>
       <h2>Reactions</h2>

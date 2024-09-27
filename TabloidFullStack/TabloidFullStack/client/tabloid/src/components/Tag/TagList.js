@@ -12,7 +12,6 @@ export const TagList = () => {
     getAllTags().then((allTags) => setTags(allTags));
   };
   
-
   useEffect(() => {
     getTags();
   }, []);
