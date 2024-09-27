@@ -120,6 +120,11 @@ namespace TabloidFullStack.Controllers
             _postRepository.RemoveTagFromPost(postId, tagId);
             return NoContent();
         }
-       
+
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_postRepository.SearchByTag(q, sortDesc));
+        }
     }
 }
