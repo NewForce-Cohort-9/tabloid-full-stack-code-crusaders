@@ -325,9 +325,11 @@ namespace TabloidFullStack.Repositories
                 {
                     var sql =
                         @"SELECT p.Id AS PostId, p.Title, p.Content, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, 
-                               p.UserProfileId, up.DisplayName,
-                               t.Id as TagId, t.Name as TagName 
-                        FROM Post p 
+                               p.CategoryId, p.UserProfileId, up.DisplayName,
+                               t.Id as TagId, t.Name as TagName, 
+                               c.Name AS CategoryName
+                        FROM Post p
+                        LEFT JOIN Category c ON p.CategoryId = c.Id 
                         LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
                         LEFT JOIN PostTag pt ON p.Id = pt.PostId
                         LEFT JOIN Tag t ON pt.TagId = t.Id
@@ -357,7 +359,13 @@ namespace TabloidFullStack.Repositories
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                            Category = new Category()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                Name = reader.GetString(reader.GetOrdinal("CategoryName"))
+                            },
                             UserProfile = new UserProfile()
                             {
                                 DisplayName = reader.GetString(reader.GetOrdinal("DisplayName"))

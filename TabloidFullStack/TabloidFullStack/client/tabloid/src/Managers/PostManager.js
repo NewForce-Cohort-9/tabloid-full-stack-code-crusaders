@@ -64,6 +64,7 @@ export const removeTagFromPost = (postId, tagId) => {
   });
 };
 
+// https://localhost:5001/api/Post/search?q=funny
 // Fetch to search posts by tag
 export const getSearchedPostsByTag = (q) => {
   return fetch(`${apiUrl}/search?q=${q}`) 
