@@ -205,7 +205,57 @@ namespace TabloidFullStack.Repositories
             }
         }
 
+        public List<Post> GetByCategoryId(int categoryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT p.Id, p.Title, p.Content, p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                               p.CategoryId, c.Name as CategoryName, u.DisplayName as AuthorName
+                        FROM Post p
+                        JOIN UserProfile u ON p.UserProfileId = u.Id
+                        JOIN Category c ON p.CategoryId = c.Id
+                        WHERE p.CategoryId = @categoryId
+                        ORDER BY p.CreateDateTime DESC";
 
+                    cmd.Parameters.AddWithValue("@categoryId", categoryId);
+
+                    var reader = cmd.ExecuteReader();
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            Category = new Category
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                Name = reader.GetString(reader.GetOrdinal("CategoryName"))
+                            },
+                            UserProfile = new UserProfile()
+                            {
+                                DisplayName = reader.GetString(reader.GetOrdinal("AuthorName"))
+                            }
+                        });
+                    }
+
+                    reader.Close();
+                    return posts;
+                }
+            }
+        }
+
+
+        // CRUD Methods
         public void Add(Post post)
         {
             using (var conn = Connection)
@@ -272,6 +322,8 @@ namespace TabloidFullStack.Repositories
             }
         }
 
+
+        // Tags for Posts
         public void AddTagsToPost(int postId, List<int> tagIds)
         {
             using (var conn = Connection)
@@ -316,6 +368,7 @@ namespace TabloidFullStack.Repositories
         }
 
 
+        // Search Posts by Tag
         public List<Post> SearchByTag(string criterion, bool sortDescending)
         {
             using (var conn = Connection)
