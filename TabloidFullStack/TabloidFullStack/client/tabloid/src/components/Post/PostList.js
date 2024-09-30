@@ -10,6 +10,7 @@ export const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState({});
   const [postCategories, setPostCategories] = useState([]);
+  const [postUsers, setPostUsers] = useState([]);
 
   const getPosts = () => {
     getAllPosts().then(allPosts => setPosts(allPosts)); 
@@ -82,8 +83,8 @@ export const PostList = () => {
                   onChange={(event) => {return postsByUser(parseInt(event.target.value))}}>
                         <option selected>Filter by User:</option>
                             {posts.map(user => {
-                                return <option value={`${user.id}`} >
-                                        {user.name}
+                                return <option value={`${user.userProfile.id}`} >
+                                        {user.userProfile?.displayName}
                                       </option>
                             })}
               </select>
