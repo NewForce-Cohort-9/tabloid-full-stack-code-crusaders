@@ -15,5 +15,7 @@ namespace TabloidFullStack.Repositories
         void RemoveTagFromPost(int postId, int tagId);
 
         public List<Post> SearchByTag(string criterion, bool sortDescending);
+
+        public List<Post> GetByCategoryId(int categoryId);
     }
 }
