@@ -126,4 +126,9 @@ export const editUserType = (userProfile) => {
   });
 };
 
+export const getAdminCount = () => {
+  return fetch(`${apiUrl}/api/userprofile/admincount`) // Adjust this API endpoint as per your backend
+    .then((res) => res.json());
+};
+
 
