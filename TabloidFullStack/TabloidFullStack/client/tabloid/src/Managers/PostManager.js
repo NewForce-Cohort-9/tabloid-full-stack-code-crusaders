@@ -70,3 +70,8 @@ export const getSearchedPostsByTag = (q) => {
   return fetch(`${apiUrl}/search?q=${q}`) 
     .then((res) => res.json())
 };
+
+// Fetch to get posts by category
+export const getPostsByCategory = (categoryId) => {
+  return fetch(`${apiUrl}/category/${categoryId}`).then(res => res.json())
+}
