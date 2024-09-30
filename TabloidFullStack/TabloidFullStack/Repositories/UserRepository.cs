@@ -236,8 +236,7 @@ namespace TabloidFullStack.Repositories
                     cmd.CommandText = @"
                 SELECT COUNT(*)
                 FROM UserProfile
-                WHERE UserTypeId = 1
-                AND IsDeactivated = 0";
+                WHERE UserTypeId = 1";
 
                     return (int)cmd.ExecuteScalar();
                 }

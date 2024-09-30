@@ -10,7 +10,7 @@ export const UserProfileList = () => {
     const userTypeId = localStorage.getItem("userTypeId");
 
     
-    // Fetch all active users (excluding deactivated users)
+    // Fetch all active users
     useEffect(() => {
         getAllUsers().then(users => {
             const activeUsers = users.filter(user => !user.isDeactivated); // Filter out deactivated users

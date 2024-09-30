@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getUserByType, editUserType, getAdminCount } from "../../Managers/UserProfileManager"; // Add getAdminCount
+import { getUserByType, editUserType, getAdminCount } from "../../Managers/UserProfileManager";
 import { Button, Card, CardBody, Col, Form, Input, Row } from "reactstrap";
 
 export const EditUserType = () => {
@@ -27,10 +27,10 @@ export const EditUserType = () => {
         e.preventDefault();
     
         // Get the new UserTypeId value from the form
-        const newUserTypeId = parseInt(e.target.userTypeId.value); // Assuming your form has a "userTypeId" field
+        const newUserTypeId = parseInt(e.target.userTypeId.value);
     
         // Prevent changing the last admin's UserType to non-admin
-        if (adminCount === 1 && userProfile.userTypeId === 1 && newUserTypeId !== 1) {
+        if (adminCount === 1 && newUserTypeId === 2) {
             alert("You must have at least one admin. Please make another user an admin before changing this user's role.");
             return;
         }

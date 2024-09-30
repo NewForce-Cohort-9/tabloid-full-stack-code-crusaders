@@ -52,7 +52,7 @@ export const UserProfile = ({ user }) => {
                     {user.firstName} {user.lastName}
                 </p>
                 <p>
-                    {user.userType.name} {/* Adjusted to access userType name */}
+                    {user.userType.name}
                 </p>
                 <Button color="primary" outline size="sm" onClick={handleEdit}>
                     Edit User Type
