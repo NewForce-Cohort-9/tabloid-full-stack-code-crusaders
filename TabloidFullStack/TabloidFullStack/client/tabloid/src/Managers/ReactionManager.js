@@ -1,7 +1,8 @@
-const apiUrl = "https://localhost:5001/api/Reaction";
+const baseUrl = "https://localhost:5001/api/Reaction";
 
-//fetch to get list of Reactions
-export const getAllReactions = () => {
-    return fetch(`${apiUrl}`)
-    .then((res) => res.json())
+//https://localhost:5001/api/Reaction/GetReactionsByPostId/1
+export const getReactionsByPostId = (postId) => {
+  return fetch(`${baseUrl}/GetReactionsByPostId/${postId}`).then((res) =>
+    res.json()
+  );
 };

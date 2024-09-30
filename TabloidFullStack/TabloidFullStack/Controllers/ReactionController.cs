@@ -17,58 +17,15 @@ namespace TabloidFullStack.Controllers
             _reactionRepository = reactionRepository;
         }
 
-        // GET: api/<ReactionController>
-        [HttpGet]
-        public IActionResult Get()
+        // GET api/<PostReactionController>/5
+        [HttpGet("GetReactionsByPostId/{id}")]
+        public IActionResult GetReactionsByPostId(int id)
         {
-            return Ok(_reactionRepository.GetAll());
-        }
-
-        // GET api/<ReactionController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var reaction = _reactionRepository.GetReactionById(id);
-            if (reaction == null) 
+            var reactions = _reactionRepository.GetReactionsByPostId(id);
+            if (reactions == null)
             {
                 return NotFound();
             }
-            return Ok(reaction);    
-        }
-
-        // POST api/<ReactionController>
-        [HttpPost]
-        public IActionResult Post(Reaction reaction)
-        {
-            _reactionRepository.Add(reaction);
-            return CreatedAtAction("Get", new {id =reaction.Id}, reaction);
-        }
-
-        // PUT api/<ReactionController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, Reaction reaction)
-        {
-            if (id != reaction.Id)
-            {
-                return BadRequest();
-            }
-            _reactionRepository.Update(reaction);   
-            return NoContent();
-        }
-
-        // DELETE api/<ReactionController>/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _reactionRepository.Delete(id);
-            return NoContent();
-        }
-
-        // ReactionController.cs
-        [HttpGet("post/{postId}")]
-        public IActionResult GetReactionsForPost(int postId)
-        {
-            var reactions = _reactionRepository.GetReactionsWithCountForPost(postId);
             return Ok(reactions);
         }
     }
