@@ -6,6 +6,7 @@ import { getCommentById } from "../../Managers/CommentManager.js";
 
 // TO DO: Create an http request for getting a single comment by id in C# controller.
 // Use useParams to obtain the comment's id to pass to this method.
+// Ensure the returned comment object does not include post or userProfile objects, as fetch requires either null values or all complete parameters for these objects to avoid 400 error.
 // Remind myself to stop trying to do impossible things on the frontend to fabricate workarounds for something simple.
 
 
