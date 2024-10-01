@@ -25,6 +25,14 @@ namespace TabloidFullStack.Controllers
             return Ok(users);
         }
 
+        [HttpGet("admincount")]
+        public IActionResult GetAdminCount()
+        {
+            var adminCount = _userRepository.GetAdminCount();
+            return Ok(adminCount);
+        }
+
+
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {

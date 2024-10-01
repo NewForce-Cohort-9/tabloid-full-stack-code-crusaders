@@ -46,7 +46,7 @@ if (!postCategories.length > 0) {
     addPost(postCopy).then((p) => {
               navigate("/Post");
             });
-    }
+  }
 
   return (
     <div className="create-container">

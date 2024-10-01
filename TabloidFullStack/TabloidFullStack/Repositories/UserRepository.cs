@@ -226,6 +226,24 @@ namespace TabloidFullStack.Repositories
             }
         }
 
+        public int GetAdminCount()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                SELECT COUNT(*)
+                FROM UserProfile
+                WHERE UserTypeId = 1";
+
+                    return (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
         private UserProfile NewUserProfileFromReader(SqlDataReader reader)
         {
             return new UserProfile()
