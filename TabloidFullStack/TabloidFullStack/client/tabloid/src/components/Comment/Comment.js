@@ -1,9 +1,13 @@
 import { Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
 import React from "react";
 import { CommentDelete } from "./CommentDelete.js";
+import { CommentEdit } from "./CommentEdit.js";
+import { useNavigate } from "react-router-dom";
 
 
 export const CommentCard = ({ comment }) => {
+
+    const navigate = useNavigate();
 
     // Added a formatDate function to get some exposure to a more standardized version of front-end date formatting
     const formatDate = (dateString) => {
@@ -26,9 +30,17 @@ export const CommentCard = ({ comment }) => {
             </CardText>
         </CardBody>
             <Button className="ml-auto" color="danger" 
-                    style={{position: "absolute", right: "1rem", top: "0.75rem", border: "1px solid red"}}
+                    style={{position: "absolute", right: "1rem", bottom: "0.75rem", width: "7%"}}
                     onClick={() => CommentDelete(comment)}>
                 Delete
+            </Button>
+            <Button className="ml-auto" color="secondary" 
+                    style={{position: "absolute", right: "1rem", top: "0.75rem", width: "7%"}}
+                    // Here, I'm sending the passed comment prop object as state to CommentEdit, 
+                    // then I will define it again there with useLocation() in react-router-dom 
+                    // so I can achieve the same goal and use less http requests in that component.
+                    onClick={() => navigate(`/comments/edit/${comment.id}`)}>
+                Edit
             </Button>
     </Card>
 )};
