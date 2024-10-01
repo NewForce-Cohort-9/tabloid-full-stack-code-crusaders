@@ -6,6 +6,12 @@ export const getCommentsByPostId = (id) => {
     .then((res) => res.json())
 };
 
+// Return a single comment by its Id
+export const getCommentById = (id) => {
+    return fetch(`${apiUrl}/GetCommentById/${id}`)
+    .then((res) => res.json())
+};
+
 // POST method for adding a new comment to database
 export const addComment =  (singleComment) => {
     return fetch(apiUrl, {
@@ -22,3 +28,13 @@ export const deleteComment = (id) => {
       method: "DELETE",
     });
   };
+
+export const editComment = (singleComment) => {
+    return fetch(`${apiUrl}/Edit/${singleComment.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(singleComment)
+    });
+};
