@@ -5,6 +5,7 @@ import { getAllPosts, getPostsByCategory, getPostsByUserId } from "../../Manager
 import { getAllCategories } from "../../Managers/CategoryManager";
 import { Link } from "react-router-dom";
 import { Button, Col, Row } from "reactstrap";
+import { getAllUsers } from "../../Managers/UserProfileManager";
 
 export const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -57,6 +58,12 @@ export const PostList = () => {
     }
   }
   
+  useEffect(() => {
+    getAllUsers().then(userArr => setPostUsers(userArr))
+  }, [])
+
+  // const filterPostsByUser = postUsers.filter(userPosts => posts.includes(post => post.userProfileId === userPosts.id))
+
 
  return (
     <>
@@ -82,9 +89,9 @@ export const PostList = () => {
               <select name="users" id="filterPostUsers" 
                   onChange={(event) => {return postsByUser(parseInt(event.target.value))}}>
                         <option selected>Filter by User:</option>
-                            {posts.map(user => {
-                                return <option value={`${user.userProfile.id}`} >
-                                        {user.userProfile?.displayName}
+                            {postUsers.map(user => {
+                                return <option value={`${user.id}`} >
+                                        {user.displayName}
                                       </option>
                             })}
               </select>
