@@ -17,10 +17,15 @@ namespace TabloidFullStack.Controllers
         }
 
         // GET: api/<CommentController>
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("GetCommentById/{id}")]
+        public IActionResult GetCommentById(int id)
         {
-            return Ok();
+            var comment = _commentRepository.GetCommentById(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(comment);
         }
 
         [HttpGet("GetCommentsByPostId/{id}")]
@@ -56,10 +61,16 @@ namespace TabloidFullStack.Controllers
 
 
         // GET: CommentController/Edit/5
-        [HttpPut("{id}")]
-        public IActionResult Edit(int id)
+        [HttpPut("Edit/{id}")]
+        public IActionResult Edit(int id, Comment comment)
         {
-            return Ok();
+            if (id != comment.Id)
+            {
+                return BadRequest();
+            }
+
+            _commentRepository.Update(comment);
+            return NoContent();
         }
 
 
