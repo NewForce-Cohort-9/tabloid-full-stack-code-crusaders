@@ -14,10 +14,10 @@ export const Post = ({ post }) => {
         <p>{new Date(post.publishDateTime).toLocaleDateString()}</p>
         <p>Category: <em>{post.category.name}</em></p>
         <p>Posted by: {post.userProfile?.displayName}</p>
-        <Link to={`/post/edit/${post.id}`} key="post name">
+        <Link to={`/post/edit/${post.id}`}>
           <Button color="primary" outline size="sm">Edit</Button>
         </Link>
-        <Link to={`/post/delete/${post.id}`} key="post name">
+        <Link to={`/post/delete/${post.id}`}>
           <Button color="success" outline size="sm">Delete</Button>
         </Link>
         </CardBody>

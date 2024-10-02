@@ -98,7 +98,7 @@ export const PostEdit = () => {
                         <Button color="info" onClick={() => editPostObj()}>
                             Submit
                         </Button>
-                        <Link to="/post" key="post">
+                        <Link to="/post">
                             <Button color="info bg-info-subtle">Return to Posts</Button>
                         </Link>
                     </Col>

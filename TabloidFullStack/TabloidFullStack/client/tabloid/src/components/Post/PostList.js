@@ -77,7 +77,7 @@ export const PostList = () => {
             <Col md={6}>
               <select name="categories" id="filterPostCategories" 
                   onChange={(event) => {return postsByCategory(parseInt(event.target.value))}}>
-                        <option selected>Filter by Category:</option>
+                        <option>Filter by Category:</option>
                             {postCategories.map(category => {
                                 return <option value={`${category.id}`} >
                                         {category.name}
@@ -88,7 +88,7 @@ export const PostList = () => {
             <Col md={6}>
               <select name="users" id="filterPostUsers" 
                   onChange={(event) => {return postsByUser(parseInt(event.target.value))}}>
-                        <option selected>Filter by User:</option>
+                        <option>Filter by User:</option>
                             {postUsers.map(user => {
                                 return <option value={`${user.id}`} >
                                         {user.displayName}
@@ -97,7 +97,7 @@ export const PostList = () => {
               </select>
             </Col>
             <div>
-              <Link to="/post/add" key="post name">
+              <Link to="/post/add">
                 <Button color="info">Add New Post</Button>
               </Link>
             </div>

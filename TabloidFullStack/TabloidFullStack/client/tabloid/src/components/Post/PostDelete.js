@@ -6,11 +6,11 @@ import { deletePost, getPostById } from "../../Managers/PostManager";
 export const PostDelete = () => {
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
-    const { postId } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        getPostById(postId)
+        getPostById(id)
             .then(postObj => {
                 setPost(postObj);
                 setLoading(false);
@@ -19,10 +19,10 @@ export const PostDelete = () => {
                 console.error("Error fetching post:", error);
                 setLoading(false);
             });
-    }, [postId]);
+    }, [id]);
 
     const handleDelete = () => {
-        deletePost(postId).then(() => {
+        deletePost(id).then(() => {
             navigate("/Post").catch(error => {
                 console.error("Error deleting post:", error);
         });
