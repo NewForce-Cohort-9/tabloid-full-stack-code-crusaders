@@ -29,7 +29,7 @@ export const CommentCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const comment = {
-            postId: postId.id,
+            postId: parseInt(postId.id),
             userProfileId: userProfileId,
             subject: subject,
             content: content,
@@ -38,7 +38,7 @@ export const CommentCreate = () => {
         try {
             await addComment(comment);
             window.alert("Comment added successfully");
-            navigate(`/comments/${postId.id}`);
+            navigate(`/comments/${parseInt(postId.id)}`);
         } catch (error) {
             console.error("There was an error while trying to add comment:", error);
         }
