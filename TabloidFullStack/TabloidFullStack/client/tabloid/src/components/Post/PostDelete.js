@@ -19,12 +19,15 @@ export const PostDelete = () => {
     }, [id]);
 
     const handleDelete = () => {
-        deletePost(id).then(() => {
-            navigate("/Post").catch(error => {
+        deletePost(id)
+            .then(() => {
+                navigate("/Post");
+            })
+            .catch(error => {
                 console.error("Error deleting post:", error);
                 alert("Failed to delete post. It may have existing comments or reactions.");
-        });
-    });
+            });
+    };
 
 
     if (!post) return <p>Post not found.</p>;
@@ -45,6 +48,5 @@ export const PostDelete = () => {
                 </CardBody>
             </Card>
         </div>
-        );
-    }
+    );
 };
