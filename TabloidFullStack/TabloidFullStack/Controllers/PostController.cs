@@ -10,12 +10,10 @@ namespace TabloidFullStack.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
-        private readonly ICategoryRepository _categoryRepository;
 
-        public PostController(IPostRepository postRepository, ICategoryRepository categoryRepository)
+        public PostController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
-            _categoryRepository = categoryRepository;
         }
 
         // GET: api/<PostController>

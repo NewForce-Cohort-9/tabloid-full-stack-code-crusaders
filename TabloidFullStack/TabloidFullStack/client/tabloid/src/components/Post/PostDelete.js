@@ -1,34 +1,31 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, CardBody, Spinner } from "reactstrap";
+import { Button, Card, CardBody } from "reactstrap";
 import { useEffect, useState } from "react";
 import { deletePost, getPostById } from "../../Managers/PostManager";
 
 export const PostDelete = () => {
     const [post, setPost] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { postId } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        getPostById(postId)
+        getPostById(id)
             .then(postObj => {
                 setPost(postObj);
-                setLoading(false);
             })
             .catch(error => {
                 console.error("Error fetching post:", error);
-                setLoading(false);
             });
-    }, [postId]);
+    }, [id]);
 
     const handleDelete = () => {
-        deletePost(postId).then(() => {
+        deletePost(id).then(() => {
             navigate("/Post").catch(error => {
                 console.error("Error deleting post:", error);
+                alert("Failed to delete post. It may have existing comments or reactions.");
         });
     });
 
-    if (loading) return <Spinner color="primary" />;
 
     if (!post) return <p>Post not found.</p>;
 

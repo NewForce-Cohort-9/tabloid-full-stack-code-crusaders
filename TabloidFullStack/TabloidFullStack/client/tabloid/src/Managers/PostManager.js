@@ -40,8 +40,8 @@ export const editPost = (post) => {
 }
 
 // fetch to delete a Post
-export const deletePost = (postId) => {
-    return fetch(`${apiUrl}/${postId}`, {
+export const deletePost = (id) => {
+    return fetch(`${apiUrl}/${id}`, {
         method: "DELETE"
     })
 }
