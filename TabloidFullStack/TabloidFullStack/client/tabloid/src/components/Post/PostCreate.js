@@ -5,7 +5,12 @@ import { addPost } from "../../Managers/PostManager.js";
 import { getAllCategories } from "../../Managers/CategoryManager.js"
 
 export const PostCreate = () => {
-    const [post, setPost] = useState({});
+  const [post, setPost] = useState({
+    ImageLocation: '',
+    Title: '',
+    Content: '',
+    categoryId: ''
+  });
     const [postCategories, setPostCategories] = useState([]);
     // const [userProfileId, setUserProfileId] = useState("");
     // const [imageLocation, setImageLocation] = useState("");
@@ -39,11 +44,15 @@ if (!postCategories.length > 0) {
     let user = localStorage.getItem("userProfile")
     const parsedUser = JSON.parse(user)
     
-    let postCopy = {...post}
-    postCopy.UserProfileId = parsedUser.id
-    postCopy.IsApproved = true
+    const postCopy = {
+      ...post,
+      UserProfileId: parsedUser.id, // Use the parsed user ID
+      CreateDateTime: new Date().toISOString(), // Set create date
+      PublishDateTime: new Date().toISOString(), // Set publish date
+      IsApproved: true
+    };
 
-    addPost(postCopy).then((p) => {
+    addPost(postCopy).then(() => {
               navigate("/Post");
             });
   }
@@ -51,14 +60,9 @@ if (!postCategories.length > 0) {
   return (
     <div className="create-container">
       <h1>Add New Post</h1>
-      <Form>
+      <Form onSubmit={(e) => { e.preventDefault(); createPostObj(); }}>
         <Row className="row-cols-lg-auto g-3 align-items-center">
           <Col>
-            {/* <Label for="userId">User Id (For Now...)</Label>
-            <Input
-                id="userId"
-                onChange={(e) => setUserProfileId(e.target.value)}
-            /> */}
             <Label for="imageLocation">Image URL</Label>
             <Input
                 id="imageLocation"
@@ -72,7 +76,7 @@ if (!postCategories.length > 0) {
             />
             <Label for="title">Title</Label>
             <Input
-              id="post"
+              id="title"
               type="text"
               placeholder="Post Title"
               onChange={(e) => {
@@ -88,7 +92,7 @@ if (!postCategories.length > 0) {
                     copy.categoryId = e.target.value
                     setPost(copy)
                     }}>
-                <option selected>Select Post Category:</option>
+                <option>Select Post Category:</option>
                     {postCategories.map(category => {
                         return <option value={`${category.id}`} >
                             {category.name}
@@ -108,10 +112,10 @@ if (!postCategories.length > 0) {
                 }}
             />
             <br />
-            <Button color="info" onClick={() => createPostObj()}>
+            <Button color="info" type="submit">
               Submit
             </Button>
-            <Link to="/post" key="post">
+            <Link to="/post">
                 <Button color="info bg-info-subtle">Return to Posts</Button>
             </Link>
           </Col>

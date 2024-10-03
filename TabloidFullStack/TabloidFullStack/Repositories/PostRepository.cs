@@ -315,8 +315,19 @@ namespace TabloidFullStack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
+                    // First delete any related reactions
+                    cmd.CommandText = "DELETE FROM PostReaction WHERE PostId = @PostReactionPostId";
+                    DbUtils.AddParameter(cmd, "@PostReactionPostId", id);
+                    cmd.ExecuteNonQuery();
+
+                    // Then delete any related comments
+                    cmd.CommandText = "DELETE FROM Comment WHERE PostId = @CommentPostId";
+                    DbUtils.AddParameter(cmd, "@CommentPostId", id);
+                    cmd.ExecuteNonQuery();
+
+                    // Now delete the post
                     cmd.CommandText = "DELETE FROM Post WHERE Id = @Id";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
                 }
             }
