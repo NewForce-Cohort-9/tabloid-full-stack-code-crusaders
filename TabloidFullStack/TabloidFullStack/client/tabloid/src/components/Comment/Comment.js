@@ -39,6 +39,7 @@ export const CommentCard = ({ comment }) => {
                     // Here, I'm sending the passed comment prop object as state to CommentEdit, 
                     // then I will define it again there with useLocation() in react-router-dom 
                     // so I can achieve the same goal and use less http requests in that component.
+                    // This was the initial idea, but it failed multiple tests. I had to revert and create a new repository method for CommentEdit's use.
                     onClick={() => navigate(`/comments/edit/${comment.id}`)}>
                 Edit
             </Button>

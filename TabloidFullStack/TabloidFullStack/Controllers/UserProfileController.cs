@@ -57,8 +57,12 @@ namespace TabloidFullStack.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(UserProfile userProfile)
+        public IActionResult Post([FromBody] UserProfile userProfile)
         {
+            if (userProfile == null)
+            {
+                return BadRequest();
+            }
             userProfile.CreateDateTime = DateTime.Now;
             userProfile.UserTypeId = UserType.AUTHOR_ID;
             _userRepository.Add(userProfile);
